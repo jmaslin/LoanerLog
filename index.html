@@ -1,0 +1,128 @@
+<html lang="en">
+	<head>
+		<title>Loaner Log</title>
+		<!-- CSS -->
+		<link href="/components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="/components/main.css" rel="stylesheet" media="screen">
+		<!-- JS -->
+		<script src="/components/jquery/dist/jquery.min.js"></script>
+		<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+	</head>
+	<body>
+
+		<div class="container">
+			<!-- HEADER -->
+			<div id="head" class="row">
+				<div class="col-sm-8">
+					<h1>LeBow Intranet <small>Loaner Log</small></h1>
+				</div>
+			</div>
+			<!-- HEADER END -->
+
+			<!-- BODY -->
+			<div class="row">
+				<!-- SIDEBAR -->
+				<div id="side" class="col-sm-3">
+
+					<div class="title">
+						<h3>Menu</h3>
+					</div>
+
+					<div class="loan-category">
+						<h4>Laptops and Mics</h4>
+						<button type="button" class="btn btn-primary loan-btn" data-toggle="modal" data-target="#loanOutModal">Loan Out</button>
+						<button type="button" class="btn btn-info loan-btn">Loan In</button>
+					</div>
+					<div class="loan-category">
+						<h4 title="Adapters, Mice, Speakers">Accessories</h4>
+						<button type="button" class="btn btn-primary loan-btn">Loan Out</button>
+						<button type="button" class="btn btn-info loan-btn">Loan In</button>						
+					</div>
+				</div>
+				<!-- SIDEBAR END -->
+
+				<!-- MAIN CONTENT -->
+				<div id="main" class="col-sm-offset-1 col-sm-8">
+					
+					<div class="title">
+						<h3>Loaner Log</h3>
+						<!-- TODO: View options, Click to display them, etc. -->
+						<!-- View Options: Today, Certain Date, Overdue, FILTERS (Overview By User Type (Student,Staff), Overview By Item Type (Laptop, Adapter)) -->
+					</div>
+
+					<!-- LOANER TABLE -->
+					<div class="table-responsive">
+						<table class="table table-striped table-hover">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>User Type</th>
+									<th>Loan Info</th>
+									<th>Time Loaned</th>
+									<th>Options</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>John Doe</td>
+									<td>Student</td>
+									<td>Laptop</td>
+									<td>Today, 2:55pm</td>
+									<td><button class="btn btn-sm btn-info">Info</button></td>
+								</tr>
+								<tr>
+									<td>Jane Doe</td>
+									<td>Professor</td>
+									<td>Laptop, Adapter</td>
+									<td>Today, 9:47am</td>
+									<td><button class="btn btn-sm btn-info">Info</button></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+					<!-- LOANER TABLE END -->
+				</div>
+				<!-- MAIN CONTENT END -->
+			</div>
+		</div>
+		<!-- BODY END -->
+
+<div class="modal fade" id="loanOutModal" tabindex="-1" role="dialog" aria-labelledby="loanOutModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="label">New Loan</h4>
+      </div>
+      <div class="modal-body">
+      	<!-- LOAN OUT FORM -->
+      	<form>
+      		<div class="form-group">
+      			<label for="user-name">Name</label>
+        		<input id="user-name" class="form-control" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
+     			</div>
+     			<div class="form-group">
+
+     			</div>
+     			<!-- LOAN OUT FORM END -->
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+	</body>
+
+
+	<script type="text/javascript">
+
+		$('#loanOutModal').modal();
+
+	</script>
+
+</html>
