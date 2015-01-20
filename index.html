@@ -268,7 +268,7 @@
      					</div>
      				</div>
      			</div>
-     			<button id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
+     			<button type="button" id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
      			<div id="loan-out-adv-options">
      			<!-- TODO: Adv options: Who the loan is for, is it a long-term loan, etc. -->
      			<!-- TODO: Checkout for classroom, autofill professor/CLASS who is scheduled for that class. (Ie. Speakers) -->
@@ -395,10 +395,9 @@
 			// updateLogView();
 		})
 
-		$('#toggle-adv-options').on('click', function() {
+		$('#toggle-adv-options').on('click', function(e) {
 
 			$('#loan-out-adv-options').slideToggle('fast');
-
 		});
 
 		$('.pickadate').on('click', function() {
