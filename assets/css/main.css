@@ -10,13 +10,21 @@ body {
 
 input::-moz-focus-inner { border: 0; }
 
-#head-wrapper {
-	/*position: fixed;*/
+#head {
+/*	margin-bottom: 3em;*/
 }
 
-#head {
-	position: relative;
-/*	margin-bottom: 3em;*/
+#head > .head-item {
+	display: inline-block;
+}
+
+.user-login {
+	margin-top: 0.5em;
+}
+
+.user-login > * {
+	vertical-align: middle;
+	display: inline;
 }
 
 .title {
@@ -26,10 +34,6 @@ input::-moz-focus-inner { border: 0; }
 
 .title > h3 {
 	font-weight: bold;
-}
-
-#content-wrap {
-	/*margin-top: 6em;*/
 }
 
 #side {

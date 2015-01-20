@@ -13,22 +13,23 @@
 	<body>
 
 		<div class="container">
+
 			<!-- HEADER -->
-			<div id="head-wrapper" class="row">				
-				<div id="head" class="col-md-8">
-					<h1>Loaner Log <small>Intranet</small></h1>
+			<div id="head" class="row">				
+				<h1 class="head-item">Loaner Log <small>Intranet</small></h1>
+				<div class="lead head-item user-login pull-right">
+					<p>Hello,</p> <span id="user-logged-in" class="text-primary">Justin Maslin</span>
+					<button type="button" class="btn btn-sm btn-warning">Lock</button>
+					<button type="button" class="btn btn-sm btn-info">Logout</button>
 				</div>
+				<hr>		
 			</div>
 			<!-- HEADER END -->
 
 			<!-- BODY -->
-			<div id="content-wrap" class="row">
+			<div id="content" class="row">
 				<!-- SIDEBAR -->
 				<div id="side" class="col-md-3">
-
-<!-- 					<div class="title">
-						<h3>Menu</h3>
-					</div> -->
 
 					<!-- TODO: Give each sidebar module its own box with shadow, pop-up from background. -->
 
@@ -141,7 +142,7 @@
 											<img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32">
 											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
 											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32">					
+											<img class="img img-responsive" src="/assets/img/webcam.png" width="32" height="32">					
 										</td>
 										<td>Today, 2:55pm</td>
 										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
