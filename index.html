@@ -235,69 +235,132 @@
 <!-- MODAL: NEW LOAN -->
 <div class="modal fade" id="loan-out-modal" tabindex="-1" role="dialog" aria-labelledby="loanOutModal" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content modal-lg">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title" id="label">New Loaner Log Entry</h4>
       </div>
       <div class="modal-body">
-      	<h3>Please enter the following information</h3>
-      	<hr>
-      	<!-- LOAN OUT FORM -->
-      	<form>
-      		<div class="form-group">
-      			<label for="user-name">Name</label>
-      			<div class="row">
-        			<div class="col-md-8">
-        				<input id="user-name" class="form-control" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
-        			</div>
-        			<!-- TODO: Allow multiple inputs, add to array of items of loan, would add all under same loan ID number (multiple rows) -->
-        			<div class="col-md-4">
-        				<div class="feedback" id="user-name-feedback"></div>
-        			</div>
-        		</div>
-     			</div>
-     			<div class="form-group">
-     				<label for="device-name">Device</label>
-     				<div class="row">
-     					<div class="col-md-8">
-     						<input id="device-name" class="form-control" type="text" placeholder="Click and scan or enter device ID." autocomplete="off">
-     					</div>
-     					<div class="col-md-4">
-        				<div class="feedback" id="device-name-feedback"></div>
-     					</div>
-     				</div>
-     			</div>
-     			<button type="button" id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
-     			<div id="loan-out-adv-options">
-     			<!-- TODO: Adv options: Who the loan is for, is it a long-term loan, etc. -->
-     			<!-- TODO: Checkout for classroom, autofill professor/CLASS who is scheduled for that class. (Ie. Speakers) -->
-     				<div class="form-group">
-     					<label for="loan-for-user">Reserving For</label>
-     					<div class="row">
-	     					<div class="col-md-8">
-	     						<input id="loan-for-user" class="form-control" type="text" placeholder="Enter a name (not the same one as above)." autocomplete="off">
-	     					</div>
-	     					<div class="col-md-4">
-	     						<div class="feedback" id="loan-for-user-feedback"></div>
-	     					</div>
-     					</div>
-     				</div>
-     				<div class="form-group">
-     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
-     					<div class="row">
-	     					<div class="col-md-8">
-	     						<input id="date-due-back" class="form-control pickadate" type="text" placeholder="Choose a date." autocomplete="off">
-	     					</div>
-	     					<div class="col-md-4">
-	     						<div class="feedback" id="loan-for-user-feedback"></div>
-	     					</div>
-     					</div>
-     				</div>     				
-     			</div>
+      	<div class="row">
+      		<div class="col-md-6">
+		      	<h3>New Loan</h3>
+		      	<hr>
+		      	<!-- LOAN OUT FORM -->
+		      	<form>
+		      		<div class="form-group">
+		      			<label for="user-name">Name</label>
+		      			<div class="row">
+		        			<div class="col-md-8">
+		        				<input id="user-name" class="form-control" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
+		        			</div>
+		        			<!-- TODO: Allow multiple inputs, add to array of items of loan, would add all under same loan ID number (multiple rows) -->
+		        			<div class="col-md-4">
+		        				<div class="feedback" id="user-name-feedback"></div>
+		        			</div>
+		        		</div>
+		     			</div>
+		     			<div class="form-group">
+		     				<label for="device-name">Device</label>
+		     				<div class="row">
+		     					<div class="col-md-8">
+		     						<input id="device-name" class="form-control" type="text" placeholder="Click and scan or enter device ID." autocomplete="off">
+		     					</div>
+		     					<div class="col-md-4">
+		        				<div class="feedback" id="device-name-feedback"></div>
+		     					</div>
+		     				</div>
+		     			</div>
+		     			<div class="form-group">
+		     				<label for="device-choose">Click picture to add item to loan.</label>
+		     				<div id="add-asset-list" class="row">
+		     					<div class="col-md-2">
+		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-2">
+		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+		     					<div class="col-md-2">
+		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-2">
+		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+		     					</div>
+		     				</div>
+		     				<div id="add-asset-list" class="row">
+		     					<div class="col-md-2">
+		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-2">
+		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+		     					<div class="col-md-2">
+		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-2">
+		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+		     					</div>
+		     				</div>		     				
+		     			</div>
+		     			<button type="button" id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
+		     			<div id="loan-out-adv-options">
+		     			<!-- TODO: Adv options: Who the loan is for, is it a long-term loan, etc. -->
+		     			<!-- TODO: Checkout for classroom, autofill professor/CLASS who is scheduled for that class. (Ie. Speakers) -->
+		     				<div class="form-group">
+		     					<label for="loan-for-user">Reserving For</label>
+		     					<div class="row">
+			     					<div class="col-md-8">
+			     						<input id="loan-for-user" class="form-control" type="text" placeholder="Enter name." autocomplete="off">
+			     					</div>
+			     					<div class="col-md-4">
+			     						<div class="feedback" id="loan-for-user-feedback"></div>
+			     					</div>
+		     					</div>
+		     				</div>
+		     				<div class="form-group">
+		     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
+		     					<div class="row">
+			     					<div class="col-md-8">
+			     						<input id="date-due-back" class="form-control pickadate" type="text" placeholder="Choose a date." autocomplete="off">
+			     					</div>
+			     					<div class="col-md-4">
+			     						<div class="feedback" id="loan-for-user-feedback"></div>
+			     					</div>
+		     					</div>
+		     				</div>     				
+		     			</div>
 
-     			<!-- LOAN OUT FORM END -->
-      	</form>
+		     			<!-- LOAN OUT FORM END -->
+		      	</form>
+		      </div>
+		      <div class="col-md-5 col-md-offset-1">
+		      	<h3>Loan Info</h3>
+		      	<hr>
+		      	<div id="new-loan-items">
+			      	<div class="row loan-item">
+				      	<div class="col-md-2">
+				      		<div class="vertical-center">
+				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
+				      		</div>
+				      	</div>
+				      	<div class="col-md-10 lead">
+				      		<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
+				      		<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
+				      	</div>
+			      	</div>
+			      	<div class="row loan-item">
+				      	<div class="col-md-2">
+				      		<div class="vertical-center">
+				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
+				      		</div>
+				      	</div>
+				      	<div class="col-md-10 lead">
+				      		<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
+				      		<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
+				      	</div>
+			      	</div>			      	
+		      	</div>
+		      </div>
+      	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -384,6 +447,9 @@
 
 			$('th').addClass('lead').addClass('text-center');
 			$('#loan-out-adv-options').toggle();
+		  $('[data-toggle="tooltip"]').tooltip({
+		  	placement: 'bottom'
+		  });
 		});
 
 		$('#tableView li').on('click', 'a', function() {
@@ -394,6 +460,12 @@
 
 			// updateLogView();
 		})
+
+		$('.add-asset').on('click', function(e) {
+
+			e.preventDefault();
+			console.log("test");
+		});
 
 		$('#toggle-adv-options').on('click', function(e) {
 
