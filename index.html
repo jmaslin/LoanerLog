@@ -273,33 +273,27 @@
 		     			<div class="form-group">
 		     				<label for="device-choose">Click picture to add item to loan.</label>
 		     				<div id="add-asset-list" class="row">
-		     					<div class="col-md-2">
-		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+		     					<div class="col-md-9">
+			     					<div class="col-md-3">
+			     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+			     					</div>
+		     						<div class="col-md-3">
+			     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
+			     					</div>
+			     					<div class="col-md-3">
+			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+			     					</div>
+		     						<div class="col-md-3">
+			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+			     					</div>
+			     					<div class="col-md-3">
+			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+			     					</div>
+		     						<div class="col-md-3">
+			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+			     					</div>
 		     					</div>
-	     						<div class="col-md-2">
-		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
-		     					</div>
-		     					<div class="col-md-2">
-		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-2">
-		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-		     					</div>
-		     				</div>
-		     				<div id="add-asset-list" class="row">
-		     					<div class="col-md-2">
-		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-2">
-		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
-		     					</div>
-		     					<div class="col-md-2">
-		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-2">
-		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-		     					</div>
-		     				</div>		     				
+		     				</div>				
 		     			</div>
 		     			<button type="button" id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
 		     			<div id="loan-out-adv-options">
@@ -316,7 +310,7 @@
 			     					</div>
 		     					</div>
 		     				</div>
-		     				<div class="form-group">
+		     				<div id="due-back-group" class="form-group">
 		     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
 		     					<div class="row">
 			     					<div class="col-md-8">
@@ -340,7 +334,7 @@
 		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
 			      	<div class="row loan-item">
 			          <div class="loan-item-overlay">
-			          	<img src="/assets/img/settings.png" class="img img-responsive">
+			          	<!-- <img src="/assets/img/settings.png" class="img img-responsive"> -->
 									<!-- Image height 100% of loan-item only and centered. -->
 			          </div>
 				      	<div class="col-md-2">
@@ -488,7 +482,8 @@
 				min: 1,
 				disable: [
 					1, 7
-				]
+				],
+				container: '#add-asset-list'
 			});
 		});
 
