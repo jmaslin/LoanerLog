@@ -29,7 +29,7 @@
 				</div>
 				<div class="col-md-4">
 					<div class="lead head-item user-login pull-right">
-						<p>Hello,</p> <a id="logged-in" href="#profile"><span id="user-logged-in" class="text-primary">Justin Maslin</span></a>
+						<p>Hello,</p> <a id="logged-in" href="#profile"><span id="user-logged-in" class="text-primary">Justin Maslin</span></a>&nbsp;
 						<button type="button" class="btn btn-sm btn-warning">Lock</button>
 						<button type="button" class="btn btn-sm btn-info">Logout</button>
 					</div>
@@ -84,7 +84,7 @@
 								<span class="badge">4</span>
 							</div>	
 							<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-sm-6">
-								<img class="img img-responsive" src="/assets/img/vga-adapter.png">
+								<img class="img img-responsive" src="/assets/img/camera.png">
 								<span class="badge">3</span>
 							</div>																												
 						</div>
@@ -310,7 +310,7 @@
 			     					</div>
 		     					</div>
 		     				</div>
-		     				<div id="due-back-group" class="form-group">
+		     				<div class="form-group">
 		     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
 		     					<div class="row">
 			     					<div class="col-md-8">
@@ -320,7 +320,12 @@
 			     						<div class="feedback" id="loan-for-user-feedback"></div>
 			     					</div>
 		     					</div>
-		     				</div>     				
+		     				</div>   
+<!-- TODO: Move to right side, cut off loan info size, make scrollable if longer. -->
+<!-- 		     				<div class="form-group">
+		     					<label for="loan-notes">Notes</label>  				
+		     					<textarea id="loan-notes" class="form-control" rows="3"></textarea>
+		     				</div> -->
 		     			</div>
 
 		     			<!-- LOAN OUT FORM END -->
@@ -334,12 +339,18 @@
 		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
 			      	<div class="row loan-item">
 			          <div class="loan-item-overlay">
-			          	<!-- <img src="/assets/img/settings.png" class="img img-responsive"> -->
+			          	<div class="vertical-center">
+				          	<img src="/assets/img/settings.png" class="img img-responsive">
+				          </div>				          	
+				          &nbsp;&nbsp;&nbsp;&nbsp;
+				          <div class="vertical-center">
+				          	<img src="/assets/img/remove.png" width="32" class="img img-responsive">
+			          	</div>
 									<!-- Image height 100% of loan-item only and centered. -->
 			          </div>
 				      	<div class="col-md-2">
 				      		<div class="vertical-center">
-				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
+				      			<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
 				      		</div>
 				      	</div>
 				      	<div class="col-md-10 lead">
@@ -450,7 +461,7 @@
 		  $('[data-toggle="tooltip"]').tooltip({
 		  	placement: 'bottom'
 		  });
-		  $('.loan-item-overlay').hide();
+		  // $('.loan-item-overlay').hide();
 
 		});
 
@@ -487,17 +498,17 @@
 			});
 		});
 
-		$('.loan-item').mouseenter(function() {
-			$(this).find('.loan-item-overlay').fadeIn('fast');
-			$(this).children(':not(.loan-item-overlay)').css('opacity', 0.25);
-			console.log("Hover in");
-		});
+		// $('.loan-item').mouseenter(function() {
+		// 	$(this).find('.loan-item-overlay').fadeIn('fast');
+		// 	$(this).children(':not(.loan-item-overlay)').css('opacity', 0.25);
+		// 	console.log("Hover in");
+		// });
 
-		$('.loan-item').mouseleave(function() {
-			$(this).find('.loan-item-overlay').fadeOut('fast');
-			$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
-			console.log("Hover out");
-		});		
+		// $('.loan-item').mouseleave(function() {
+		// 	$(this).find('.loan-item-overlay').fadeOut('fast');
+		// 	$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
+		// 	console.log("Hover out");
+		// });		
 
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {
