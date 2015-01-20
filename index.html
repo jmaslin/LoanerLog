@@ -242,7 +242,7 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-      		<div class="col-md-6">
+      		<div class="col-md-7">
 		      	<h3>New Loan</h3>
 		      	<hr>
 		      	<!-- LOAN OUT FORM -->
@@ -251,7 +251,7 @@
 		      			<label for="user-name">Name</label>
 		      			<div class="row">
 		        			<div class="col-md-8">
-		        				<input id="user-name" class="form-control" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
+		        				<input id="user-name" class="form-control input-lg" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
 		        			</div>
 		        			<!-- TODO: Allow multiple inputs, add to array of items of loan, would add all under same loan ID number (multiple rows) -->
 		        			<div class="col-md-4">
@@ -263,7 +263,7 @@
 		     				<label for="device-name">Device</label>
 		     				<div class="row">
 		     					<div class="col-md-8">
-		     						<input id="device-name" class="form-control" type="text" placeholder="Click and scan or enter device ID." autocomplete="off">
+		     						<input id="device-name" class="form-control input-lg" type="text" placeholder="Click and scan or enter device ID." autocomplete="off">
 		     					</div>
 		     					<div class="col-md-4">
 		        				<div class="feedback" id="device-name-feedback"></div>
@@ -309,7 +309,7 @@
 		     					<label for="loan-for-user">Reserving For</label>
 		     					<div class="row">
 			     					<div class="col-md-8">
-			     						<input id="loan-for-user" class="form-control" type="text" placeholder="Enter name." autocomplete="off">
+			     						<input id="loan-for-user" class="form-control input-lg" type="text" placeholder="Enter name." autocomplete="off">
 			     					</div>
 			     					<div class="col-md-4">
 			     						<div class="feedback" id="loan-for-user-feedback"></div>
@@ -320,7 +320,7 @@
 		     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
 		     					<div class="row">
 			     					<div class="col-md-8">
-			     						<input id="date-due-back" class="form-control pickadate" type="text" placeholder="Choose a date." autocomplete="off">
+			     						<input id="date-due-back" class="form-control input-lg pickadate" type="text" placeholder="Choose a date." autocomplete="off">
 			     					</div>
 			     					<div class="col-md-4">
 			     						<div class="feedback" id="loan-for-user-feedback"></div>
@@ -332,11 +332,17 @@
 		     			<!-- LOAN OUT FORM END -->
 		      	</form>
 		      </div>
-		      <div class="col-md-5 col-md-offset-1">
+		      <div class="col-md-5">
 		      	<h3>Loan Info</h3>
 		      	<hr>
 		      	<div id="new-loan-items">
+		      	<!-- TODO: On loan-item hover, display three icons (asset settings, remove asset from loan). -->
+		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
 			      	<div class="row loan-item">
+			          <div class="loan-item-overlay">
+			          	<img src="/assets/img/settings.png" class="img img-responsive">
+									<!-- Image height 100% of loan-item only and centered. -->
+			          </div>
 				      	<div class="col-md-2">
 				      		<div class="vertical-center">
 				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
@@ -450,6 +456,8 @@
 		  $('[data-toggle="tooltip"]').tooltip({
 		  	placement: 'bottom'
 		  });
+		  $('.loan-item-overlay').hide();
+
 		});
 
 		$('#tableView li').on('click', 'a', function() {
@@ -461,17 +469,20 @@
 			// updateLogView();
 		})
 
+		// This is for the images of assets in new loan modal (asset without barcodes).
 		$('.add-asset').on('click', function(e) {
 
 			e.preventDefault();
 			console.log("test");
 		});
 
+		// Show the adv. options in new loan modal).
 		$('#toggle-adv-options').on('click', function(e) {
 
 			$('#loan-out-adv-options').slideToggle('fast');
 		});
 
+		// Show calendar for long-term loan (no weekends, minimum 1 day).
 		$('.pickadate').on('click', function() {
 			$(this).pickadate({
 				min: 1,
@@ -480,6 +491,18 @@
 				]
 			});
 		});
+
+		$('.loan-item').mouseenter(function() {
+			$(this).find('.loan-item-overlay').fadeIn('fast');
+			$(this).children(':not(.loan-item-overlay)').css('opacity', 0.25);
+			console.log("Hover in");
+		});
+
+		$('.loan-item').mouseleave(function() {
+			$(this).find('.loan-item-overlay').fadeOut('fast');
+			$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
+			console.log("Hover out");
+		});		
 
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {

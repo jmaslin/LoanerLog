@@ -221,6 +221,7 @@ body {
 	margin-bottom: 0.5em;
 
 	position: relative;
+	max-width: 100%;
 
 	border: 1px solid #d8d8d8; 
 	-moz-border-radius: 4px;
@@ -229,4 +230,19 @@ body {
 	-moz-box-shadow: inset 0 0 0 1px #fff;
 	-webkit-box-shadow: inset 0 0 0 1px #fff;
 	box-shadow: inset 0 0 0 1px #fff; 
+}
+
+.loan-item-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(41,128,185,0.5);
+    color: #fff;
+
+}
+
+.loan-item-overlay img {
+	max-height: inherit;
 }
