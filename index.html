@@ -428,6 +428,12 @@
 
 			var loanId = $(loanMain).data('loan-id');
 
+			$.ajax({
+				url: "/testloandata.json",
+				success: function(data) {
+					console.log(data);
+				}
+			});
 			// INSERT AJAX HERE FOR LOAN INFO (Pass in loanId)
 
 			var modal = $(this);
