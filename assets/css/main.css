@@ -26,8 +26,8 @@ body {
 	display: inline-block;
 }
 
-#head > h1 {
-	margin-left: 3em;
+#head h1 {
+	margin-left: -.2em;
 }
 
 #head > .hr {
