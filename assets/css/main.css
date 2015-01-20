@@ -130,3 +130,12 @@ body {
 	width: 45%; /* Two buttons means they each take up half of width. */
 }
 
+#loan-out-adv-options {
+	margin-top: 1em;
+}
+
+
+.pickadate[disabled], .pickadate[readonly], fieldset[disabled] .pickadate {
+	cursor: default;
+	background-color: white;
+}

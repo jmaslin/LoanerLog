@@ -9,6 +9,14 @@
 		<script src="/components/jquery/dist/jquery.min.js"></script>
 		<script src="/components/bootstrap/dist/js/bootstrap.min.js"></script>
 		<link rel="icon" href="/favicon.ico" />
+		<!-- PickADate -->
+		<script src="/components/pickadate/lib/picker.js"></script>
+		<script src="/components/pickadate/lib/picker.date.js"></script>
+		<script src="/components/pickadate/lib/picker.time.js"></script>
+		<link href="/components/pickadate/lib/themes/classic.css" rel="stylesheet" media="screen"></script>
+		<link href="/components/pickadate/lib/themes/classic.date.css" rel="stylesheet" media="screen"></script>
+		<link href="/components/pickadate/lib/themes/classic.time.css" rel="stylesheet" media="screen"></script>
+
 	</head>
 	<body>
 
@@ -252,15 +260,32 @@
      					</div>
      				</div>
      			</div>
-     			<button class="btn btn-md btn-warning">Show Advanced Options</button>
+     			<button id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
      			<div id="loan-out-adv-options">
      			<!-- TODO: Adv options: Who the loan is for, is it a long-term loan, etc. -->
      			<!-- TODO: Checkout for classroom, autofill professor/CLASS who is scheduled for that class. (Ie. Speakers) -->
      				<div class="form-group">
-     					<div class="col-md-8">
-
+     					<label for="loan-for-user">Reserving For</label>
+     					<div class="row">
+	     					<div class="col-md-8">
+	     						<input id="loan-for-user" class="form-control" type="text" placeholder="Enter a name (not the same one as above)." autocomplete="off">
+	     					</div>
+	     					<div class="col-md-4">
+	     						<div class="feedback" id="loan-for-user-feedback"></div>
+	     					</div>
      					</div>
      				</div>
+     				<div class="form-group">
+     					<label for="longterm-loan">Due Date <small>(If this is a long-term loan.)</small></label>
+     					<div class="row">
+	     					<div class="col-md-8">
+	     						<input id="date-due-back" class="form-control pickadate" type="text" placeholder="Choose a date." autocomplete="off">
+	     					</div>
+	     					<div class="col-md-4">
+	     						<div class="feedback" id="loan-for-user-feedback"></div>
+	     					</div>
+     					</div>
+     				</div>     				
      			</div>
 
      			<!-- LOAN OUT FORM END -->
@@ -350,6 +375,7 @@
 		$( document ).ready(function() {
 
 			$('th').addClass('lead').addClass('text-center');
+			$('#loan-out-adv-options').toggle();
 		});
 
 		$('#tableView li').on('click', 'a', function() {
@@ -360,6 +386,21 @@
 
 			// updateLogView();
 		})
+
+		$('#toggle-adv-options').on('click', function() {
+
+			$('#loan-out-adv-options').slideToggle('fast');
+
+		});
+
+		$('.pickadate').on('click', function() {
+			$(this).pickadate({
+				min: 1,
+				disable: [
+					1, 7
+				]
+			});
+		});
 
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {
@@ -389,8 +430,10 @@
 		// CHECK LOAN IN FROM TABLE LOG
 		$('.table-button-group').on('click', 'button.check-in', function() {
 
-			var loanId = $(this).parent().parent().attr('data-loan-id');
+			var loanMain = $(this).parent().parent();
+			var loanId = $(loanMain).attr('data-loan-id');
 
+			// $(loanMain).fadeOut('slow');
 
 			// Open up modal for that loanId and show check in option.
 			// TODO: What will check in be when clicked for log item. (Ie. Main check-in will ask to scan item, auto checks in.)
