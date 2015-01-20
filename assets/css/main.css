@@ -20,7 +20,8 @@ input::-moz-focus-inner { border: 0; }
 }
 
 .title {
-	margin-bottom: 2.5em;
+	margin-top: 1em;
+	margin-bottom: 1em;
 }
 
 .title > h3 {
@@ -34,6 +35,7 @@ input::-moz-focus-inner { border: 0; }
 #side {
 	/*border: 1px solid gray;*/
 	/*position: fixed;*/
+	margin-top: 2em;
 }
 
 .sidebar-module {
@@ -55,7 +57,15 @@ input::-moz-focus-inner { border: 0; }
 }
 
 .inventory-item {
-	margin-bottom: 0.5em;
+	margin-bottom: 1em;
+}
+
+.inventory-item > * {
+	display: inline-block;
+}
+
+.inventory-item > span {
+	width: 80%;
 }
 
 #main {
@@ -74,7 +84,7 @@ input::-moz-focus-inner { border: 0; }
 	font-weight: bold;
 }
 
-#loanTable {
+#loan-table {
 	height: 60vh;
 	overflow: auto;
 }
@@ -83,7 +93,11 @@ input::-moz-focus-inner { border: 0; }
 	margin-bottom: 1em;
 }
 
-.tableBtnGroup > button {
+#loan-table img {
+	display: inline-block;
+}
+
+.table-button-group > button {
 	/*margin: . 25em;*/
 	margin-left: .25em;
 	margin-right: .25em;
