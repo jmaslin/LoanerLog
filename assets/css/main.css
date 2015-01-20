@@ -3,19 +3,36 @@ body {
 	position: relative;
 }
 
-:focus {
-	outline: 0;
+#head {
+	display: block;
+	position: relative;
+/*	margin-bottom: 3em;*/
 }
 
-
-input::-moz-focus-inner { border: 0; }
-
-#head {
-/*	margin-bottom: 3em;*/
+#head h1:before {
+	content: "";
+	background: url("/laptop.png");
+	background-repeat: no-repeat;
+	z-index: -1;
+	opacity: 0.4;
+	position: absolute;
+  	top: -.5em;
+  	left: 0;
+  	bottom: -.55em;
+  	right: 0;
 }
 
 #head > .head-item {
 	display: inline-block;
+}
+
+#head > h1 {
+	margin-left: 3em;
+}
+
+#head > .hr {
+	background-color: white;
+	height: 2em;
 }
 
 .user-login {
@@ -91,6 +108,11 @@ input::-moz-focus-inner { border: 0; }
 #loan-table {
 	height: 60vh;
 	overflow: auto;
+}
+
+#loan-table > table {
+	background-color: white;
+
 }
 
 #tableView {

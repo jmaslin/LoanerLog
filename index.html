@@ -15,14 +15,20 @@
 		<div class="container">
 
 			<!-- HEADER -->
-			<div id="head" class="row">				
-				<h1 class="head-item">Loaner Log <small class="text-primary">Organization Intranet</small></h1>
-				<div class="lead head-item user-login pull-right">
-					<p>Hello,</p> <span id="user-logged-in" class="text-primary">Justin Maslin</span>
-					<button type="button" class="btn btn-sm btn-warning">Lock</button>
-					<button type="button" class="btn btn-sm btn-info">Logout</button>
+			<div id="head" class="row">			
+				<div class="col-md-8">	
+					<h1 class="head-item">Loaner Log <a id="org-linkback" href="#"><small class="text-primary">Organization Intranet</small></a></h1>
 				</div>
-				<hr>		
+				<div class="col-md-4">
+					<div class="lead head-item user-login pull-right">
+						<p>Hello,</p> <span id="user-logged-in" class="text-primary">Justin Maslin</span>
+						<button type="button" class="btn btn-sm btn-warning">Lock</button>
+						<button type="button" class="btn btn-sm btn-info">Logout</button>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="hr"><hr></div>	
+				</div>	
 			</div>
 			<!-- HEADER END -->
 
@@ -124,7 +130,7 @@
 					<div class="row">
 						<!-- LOANER TABLE -->
 						<div id="loan-table" class="table-responsive">
-							<table class="table table-striped table-hover">
+							<table class="table table-hover table-bordered">
 								<thead>
 									<tr>
 										<th>Name</th>
