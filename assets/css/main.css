@@ -1,5 +1,6 @@
 body {
 	font-size: 150%;
+	position: relative;
 }
 
 :focus {
@@ -9,22 +10,52 @@ body {
 
 input::-moz-focus-inner { border: 0; }
 
+#head-wrapper {
+	/*position: fixed;*/
+}
 
 #head {
-	margin-bottom: 3em;
+	position: relative;
+/*	margin-bottom: 3em;*/
 }
 
 .title {
-	margin-bottom: 3em;
+	margin-bottom: 2.5em;
 }
 
 .title > h3 {
 	font-weight: bold;
 }
 
+#content-wrap {
+	/*margin-top: 6em;*/
+}
+
 #side {
 	/*border: 1px solid gray;*/
+	/*position: fixed;*/
+}
 
+.sidebar-module {
+
+	display: block;
+	background-color: white;
+	padding: 1.5em;
+	padding-top: 0.25em;
+	margin-bottom: 1.5em;
+
+	border: 2px solid gray;
+	-webkit-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);
+	box-shadow: 10px 10px 15px 0px rgba(0,0,0,0.75);	
+}
+
+.sidebar-module > h4 {
+
+}
+
+.inventory-item {
+	margin-bottom: 0.5em;
 }
 
 #main {
@@ -33,9 +64,9 @@ input::-moz-focus-inner { border: 0; }
 
 .loan-btn {
 	width: 100%;
-	margin-left: 1em;
+	/*margin-left: 1em;*/
 	margin-bottom: 0.25em;
-	height: 2.5em;
+	height: 4em;
 }
 
 .loan-category {
@@ -43,6 +74,19 @@ input::-moz-focus-inner { border: 0; }
 	font-weight: bold;
 }
 
-#tableBtnGroup > button {
-	margin: .25em;
+#loanTable {
+	height: 60vh;
+	overflow: auto;
 }
+
+#tableView {
+	margin-bottom: 1em;
+}
+
+.tableBtnGroup > button {
+	/*margin: . 25em;*/
+	margin-left: .25em;
+	margin-right: .25em;
+	width: 45%; /* Two buttons means they each take up half of width. */
+}
+
