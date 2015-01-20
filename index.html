@@ -37,8 +37,8 @@
 						<div class="row">
 							<h3 class="text-primary">Loan Actions</h3>
 							<hr>
-							<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loanOutModal">Check Out</button>
-							<button type="button" class="btn btn-success loan-btn">Check In</button>
+							<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal">Check Out</button>
+							<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal">Check In</button>
 						</div>
 					</div>
 
@@ -208,7 +208,7 @@
 		<!-- BODY END -->
 
 <!-- MODAL: NEW LOAN -->
-<div class="modal fade" id="loanOutModal" tabindex="-1" role="dialog" aria-labelledby="loanOutModal" aria-hidden="true">
+<div class="modal fade" id="loan-out-modal" tabindex="-1" role="dialog" aria-labelledby="loanOutModal" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -258,12 +258,70 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary">Loan Out</button>
+        <button type="button" class="btn btn-primary">Checkout</button>
       </div>
     </div>
   </div>
 </div>
 <!-- MODAL: NEW LOAN (END) -->
+
+<!-- MODAL: LOAN CHECK IN -->
+<div class="modal fade" id="loan-in-modal" tabindex="-1" role="dialog" aria-labelledby="loadInModal" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="label">Check In</h4>
+      </div>
+      <div class="modal-body">
+      	<h3>Please enter the following information</h3>
+      	<!-- LOAN OUT FORM -->
+      	<form>
+      		<div class="form-group">
+      			<label for="user-name">Name</label>
+      			<div class="row">
+        			<div class="col-md-8">
+        				<input id="user-name" class="form-control" type="text" placeholder="Click and scan or enter a name." autocomplete="off">
+        			</div>
+        			<!-- TODO: Allow multiple inputs, add to array of items of loan, would add all under same loan ID number (multiple rows) -->
+        			<div class="col-md-4">
+        				<div class="feedback" id="user-name-feedback"></div>
+        			</div>
+        		</div>
+     			</div>
+     			<div class="form-group">
+     				<label for="device-name">Device</label>
+     				<div class="row">
+     					<div class="col-md-8">
+     						<input id="device-name" class="form-control" type="text" placeholder="Click and scan or enter device ID." autocomplete="off">
+     					</div>
+     					<div class="col-md-4">
+        				<div class="feedback" id="device-name-feedback"></div>
+     					</div>
+     				</div>
+     			</div>
+     			<button class="btn btn-md btn-warning">Show Advanced Options</button>
+     			<div id="loanOutAdvancedOptions">
+     			<!-- TODO: Adv options: Who the loan is for, is it a long-term loan, etc. -->
+     			<!-- TODO: Checkout for classroom, autofill professor/CLASS who is scheduled for that class. (Ie. Speakers) -->
+     				<div class="form-group">
+     					<div class="col-md-8">
+
+     					</div>
+     				</div>
+     			</div>
+
+     			<!-- LOAN OUT FORM END -->
+      	</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary">CheckIn</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- MODAL: LOAN CHECK IN (END) -->
 
 <!-- MODAL: LOAN INFO -->
 <div class="modal fade" id="loan-info-modal" tabindex="-1" role="dialog" aria-labelledby="loanInfoModal" aria-hidden="true">
