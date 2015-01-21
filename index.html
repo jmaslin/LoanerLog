@@ -339,13 +339,13 @@
 		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
 			      	<div class="row loan-item">
 			          <div class="loan-item-overlay">
-			          	<div class="vertical-center">
-				          	<img src="/assets/img/settings.png" class="img img-responsive">
-				          </div>				          	
-				          &nbsp;&nbsp;&nbsp;&nbsp;
-				          <div class="vertical-center">
-				          	<img src="/assets/img/remove.png" width="32" class="img img-responsive">
-			          	</div>
+				          <!-- <span class="helper"></span> -->
+				          <div class="frame">
+				         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
+				         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
+				        		<img src="/assets/img/remove.png" class="img img-responsive">
+				          </div>
+				          <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
 									<!-- Image height 100% of loan-item only and centered. -->
 			          </div>
 				      	<div class="col-md-2">
@@ -461,7 +461,7 @@
 		  $('[data-toggle="tooltip"]').tooltip({
 		  	placement: 'bottom'
 		  });
-		  // $('.loan-item-overlay').hide();
+		  $('.loan-item-overlay').hide();
 
 		});
 
@@ -498,17 +498,17 @@
 			});
 		});
 
-		// $('.loan-item').mouseenter(function() {
-		// 	$(this).find('.loan-item-overlay').fadeIn('fast');
-		// 	$(this).children(':not(.loan-item-overlay)').css('opacity', 0.25);
-		// 	console.log("Hover in");
-		// });
+		$('.loan-item').mouseenter(function() {
+			$(this).find('.loan-item-overlay').fadeIn('fast');
+			$(this).children(':not(.loan-item-overlay)').css('opacity', 0.1);
+			console.log("Hover in");
+		});
 
-		// $('.loan-item').mouseleave(function() {
-		// 	$(this).find('.loan-item-overlay').fadeOut('fast');
-		// 	$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
-		// 	console.log("Hover out");
-		// });		
+		$('.loan-item').mouseleave(function() {
+			$(this).find('.loan-item-overlay').fadeOut('fast');
+			$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
+			console.log("Hover out");
+		});		
 
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {
@@ -520,6 +520,11 @@
 		// 	// Open up modal with loanId and info.
 
 		// });
+
+		// Hide adv options on modal close
+		$('#loan-out-modal').on('hidden.bs.modal', function(event) {
+			$('#loan-out-adv-options').hide();
+		});
 
 		$('#loan-info-modal').on('show.bs.modal', function(event) {
 

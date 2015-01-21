@@ -212,6 +212,7 @@ body {
 .vertical-center {
 	vertical-align: middle;
 	display: inline-block;
+	/*height: 100%;*/
 	/*background-color: yellow;*/
 	/*height: 1.5em;*/
 }
@@ -244,16 +245,34 @@ body {
 }
 
 .loan-item-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(162,202,136,0.45);
+  color: #fff;
+
+  vertical-align: middle;
+  display: inline-block;
+  /*height: 4em;*/
+}
+
+.loan-item-overlay img, .loan-item-overlay input {
+	/*max-height: 42px;*/
+	display: inline-block;
+	vertical-align: middle;
+	width: 42px;
+	text-align: center;
+	margin: auto;
+	height: auto;
+}
+
+.frame {
+		text-align: center;
+    margin: 0.5em 0;  
+    height: 48px;
     width: 100%;
-    height: 100%;
-    background-color: rgba(41,128,185,0.5);
-    color: #fff;
-}
-
-.loan-item-overlay img {
-	max-height: 42px;
-
-}
+    /*border: 1px solid red;*/
+    position: relative;
+ }
