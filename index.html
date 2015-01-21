@@ -275,10 +275,10 @@
 		     				<div id="add-asset-list" class="row">
 		     					<div class="col-md-9">
 			     					<div class="col-md-3">
-			     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+			     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
 			     					</div>
 		     						<div class="col-md-3">
-			     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
+			     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" name="hdmi-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
 			     					</div>
 			     					<div class="col-md-3">
 			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
@@ -470,6 +470,8 @@
 		  });
 		  $('.loan-item-overlay').hide();
 
+		  // updateLoanList('test');
+
 		});
 
 		$('#tableView li').on('click', 'a', function() {
@@ -484,9 +486,79 @@
 		// This is for the images of assets in new loan modal (asset without barcodes).
 		$('.add-asset').on('click', function(e) {
 
+			var assetType = $(this).attr('name');
+
+			updateLoanList(assetType);
 			e.preventDefault();
-			console.log("test");
+			// e.stopPropagation();
 		});
+
+    	// <div class="row loan-item">
+     //    <div class="loan-item-overlay">
+      //     <!-- <span class="helper"></span> -->
+      //     <div class="align-frame">
+     //   		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
+     //   	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
+     //  		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
+      //     </div>
+     //    </div>
+	     //  <div class="col-md-2">
+	     //  	<div class="loan-item-img">
+	     //  		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
+	     //  	</div>
+	     //  </div>
+	     //  <div class="col-md-10 loan-item-text">
+	     //  	<div class="loan-item-type text-primary lead">Dell Laptop</div>&nbsp;
+	     //  	<div class="loan-item-id text-info">1YK5XY1</div>
+	     //  </div>
+      	// </div>
+
+		function updateLoanList (assetType) {
+
+			var asset = getAssetInfo(assetType);
+			console.log(asset);
+
+			var newLoanItem = 
+				[ '<div class="row loan-item">',
+					'  <div class="loan-item-overlay">',
+					'    <div class="align-frame">',
+					'      <input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">',
+					'      &nbsp;&nbsp;&nbsp;&nbsp;	',
+					'      <input type="image" src="/assets/img/remove.png" class="img img-responsive">',
+					'    </div>',
+					'  </div>',
+					'  <div class="col-md-2">',
+					'    <div class="loan-item-img">',
+					'      <img class="img img-responsive" width="42" src="/assets/img/'+asset.imageName+'">',
+          '    </div>',
+          '  </div>',
+          '  <div class="col-md-10 loan-item-text">',
+          '    <div class="loan-item-type text-primary lead">'+asset.type+'</div>&nbsp',
+          '    <div class="loan-item-id text-info">'+asset.id+'</div>',
+          '  </div>',
+          '</div>'
+				].join('\n');
+
+				$('#new-loan-items').append(newLoanItem);
+				$('.loan-item-overlay').hide();
+				
+				// console.log(newLoanItem);
+		}
+
+		function getAssetInfo(assetType) {
+
+			// AJAX submit the asset type, retrieve info.
+
+			// Temp code 
+			var asset = {
+				type: "VGA Adapter",
+				id: "Generic",
+				imageName: "vga-adapter.png"
+			}
+
+			return asset;
+
+		}
 
 		// Show the adv. options in new loan modal).
 		$('#toggle-adv-options').on('click', function(e) {
@@ -505,19 +577,26 @@
 			});
 		});
 
-		$('.loan-item').mouseenter(function() {
+		// $('.loan-item').mouseenter(function() {
+		// 	var thisEl = this;	
+		// 	$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
+		// 		$(thisEl).find('.loan-item-overlay').fadeIn('fast');
+		// 	});
+		// });
+
+		$('#new-loan-items').on('mouseenter', '.loan-item', function() {
 			var thisEl = this;	
 			$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
 				$(thisEl).find('.loan-item-overlay').fadeIn('fast');
 			});
 		});
 
-		$('.loan-item').mouseleave(function() {
+		$('#new-loan-items').on('mouseleave', '.loan-item', function() {
 			var thisEl = this;
 			$(this).find('.loan-item-overlay').fadeOut('fast', function() {
 				$(thisEl).children(':not(.loan-item-overlay)').fadeTo(0, 1);			
 			});
-		});		
+		});
 
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {
