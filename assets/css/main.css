@@ -209,15 +209,18 @@ body {
 	margin-left: .5em;
 }
 
-.vertical-center {
-	vertical-align: middle;
-	display: inline-block;
-	/*height: 100%;*/
-	/*background-color: yellow;*/
-	/*height: 1.5em;*/
+.loan-item-text {
+	margin-top: 0.25em;
 }
 
-/*.loan-item {*/
+.loan-item-text div {
+	vertical-align: bottom;
+	display: inline;
+}
+
+.loan-item-img {
+	display: inline-block;
+}
 
 #add-asset-list > .col-md-9 > .col-md-3 {
 	text-align: center;
