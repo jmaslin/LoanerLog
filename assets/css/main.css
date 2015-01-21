@@ -263,15 +263,16 @@ body {
 	display: inline-block;
 	vertical-align: middle;
 	width: 42px;
-	text-align: center;
 	margin: auto;
 	height: auto;
+
+	padding-right: 0.25em;
 }
 
-.frame {
-		text-align: center;
+.align-frame {
+	text-align: center;
     margin: 0.5em 0;  
-    height: 48px;
+    height: auto;
     width: 100%;
     /*border: 1px solid red;*/
     position: relative;

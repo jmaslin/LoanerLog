@@ -242,7 +242,7 @@
       </div>
       <div class="modal-body">
       	<div class="row">
-      		<div class="col-md-7">
+      		<div class="col-md-7"> 
 		      	<h3>New Loan</h3>
 		      	<hr>
 		      	<!-- LOAN OUT FORM -->
@@ -340,35 +340,46 @@
 			      	<div class="row loan-item">
 			          <div class="loan-item-overlay">
 				          <!-- <span class="helper"></span> -->
-				          <div class="frame">
-				         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
-				         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-				        		<img src="/assets/img/remove.png" class="img img-responsive">
+				          <div class="align-frame">
+			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
+			         	 	<!-- &nbsp;&nbsp;&nbsp;&nbsp;				         		 -->
+			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
 				          </div>
 				          <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
 									<!-- Image height 100% of loan-item only and centered. -->
 			          </div>
-				      	<div class="col-md-2">
-				      		<div class="vertical-center">
-				      			<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
-				      		</div>
+				      <div class="col-md-2">
+				      	<div class="vertical-center">
+				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
 				      	</div>
-				      	<div class="col-md-10 lead">
-				      		<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
-				      		<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
-				      	</div>
+				      </div>
+				      <div class="col-md-10 lead">
+				      	<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
+				      	<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
+				      </div>
 			      	</div>
 			      	<div class="row loan-item">
-				      	<div class="col-md-2">
-				      		<div class="vertical-center">
+			          <div class="loan-item-overlay">
+				          <!-- <span class="helper"></span> -->
+				          <div class="align-frame">
+			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
+			         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
+			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
+				          </div>
+				          <!-- &nbsp;&nbsp;&nbsp;&nbsp; -->
+						<!-- Image height 100% of loan-item only and centered. -->
+			          </div>
+				      <div class="col-md-2">
+				      	<div class="vertical-center">
 				      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
-				      		</div>
 				      	</div>
-				      	<div class="col-md-10 lead">
-				      		<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
-				      		<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
-				      	</div>
-			      	</div>			      	
+				      </div>
+				      <div class="col-md-10 lead">
+				      	<span class="loan-item-type text-primary vertical-center">Dell Laptop</span>&nbsp;
+				      	<span class="loan-item-id text-info vertical-center">1YK5XY1</span>
+				      </div>
+			      	</div>
+		      	
 		      	</div>
 		      </div>
       	</div>
@@ -501,13 +512,11 @@
 		$('.loan-item').mouseenter(function() {
 			$(this).find('.loan-item-overlay').fadeIn('fast');
 			$(this).children(':not(.loan-item-overlay)').css('opacity', 0.1);
-			console.log("Hover in");
 		});
 
 		$('.loan-item').mouseleave(function() {
 			$(this).find('.loan-item-overlay').fadeOut('fast');
 			$(this).children(':not(.loan-item-overlay)').css('opacity', 1);
-			console.log("Hover out");
 		});		
 
 		// SHOW LOAN INFO FROM LOG TABLE
