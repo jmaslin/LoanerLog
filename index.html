@@ -343,7 +343,7 @@
 				          <div class="align-frame">
 			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
 			         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
+			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">
 				          </div>
 			          </div>
 					      <div class="col-md-2">
@@ -362,7 +362,7 @@
 				          <div class="align-frame">
 			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
 			         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
+			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">
 				          </div>
 			          </div>
 					      <div class="col-md-2">
@@ -524,7 +524,7 @@
 					'    <div class="align-frame">',
 					'      <input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">',
 					'      &nbsp;&nbsp;&nbsp;&nbsp;	',
-					'      <input type="image" src="/assets/img/remove.png" class="img img-responsive">',
+					'      <input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">',
 					'    </div>',
 					'  </div>',
 					'  <div class="col-md-2">',
@@ -598,6 +598,11 @@
 			});
 		});
 
+		$('#new-loan-items').on('click', '.loan-item-remove', function() {
+			var loanItem = $(this).parent().parent().parent();
+			$(loanItem).slideUp();
+		});
+
 		// SHOW LOAN INFO FROM LOG TABLE
 		// $('.table-button-group').on('click', 'button.get-info', function() {
 
@@ -612,6 +617,7 @@
 		// Hide adv options on modal close
 		$('#loan-out-modal').on('hidden.bs.modal', function(event) {
 			$('#loan-out-adv-options').hide();
+			$('#new-loan-items').children().remove();
 		});
 
 		$('#loan-info-modal').on('show.bs.modal', function(event) {

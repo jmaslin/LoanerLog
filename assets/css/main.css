@@ -245,9 +245,13 @@ body {
 	-moz-box-shadow: inset 0 0 0 1px #fff;
 	-webkit-box-shadow: inset 0 0 0 1px #fff;
 	box-shadow: inset 0 0 0 1px #fff; 
+
+	position: relative;
+
 }
 
 .loan-item-overlay {
+
   position: absolute;
   top: 0;
   left: 0;
@@ -258,11 +262,14 @@ body {
 
   vertical-align: middle;
   display: inline-block;
+
+  z-index: 99 !important;
   /*height: 4em;*/
 }
 
 .loan-item-overlay img, .loan-item-overlay input {
 	/*max-height: 42px;*/
+
 	display: inline-block;
 	vertical-align: middle;
 	width: 42px;
@@ -274,9 +281,9 @@ body {
 
 .align-frame {
 	text-align: center;
-    margin: 0.5em 0;  
-    height: auto;
-    width: 100%;
-    /*border: 1px solid red;*/
-    position: relative;
+  margin: 0.5em 0;  
+  height: auto;
+  width: 100%;
+  /*border: 1px solid red;*/
+  position: relative;
  }
