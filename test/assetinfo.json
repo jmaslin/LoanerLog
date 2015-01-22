@@ -1,0 +1,52 @@
+{
+	"Assets":[
+		{
+			"ident": "vga-adapter",
+			"name": "VGA Adapter",
+			"imgName": "vga-adapter.png",
+			"class": "adapter-generic"
+		},
+		{
+			"ident": "hdmi-adapter",
+			"name": "HDMI Adapter",
+			"imgName": "hdmi-adapter.png",
+			"class": "adapter-generic"
+		},
+		{
+			"ident": "presenter",
+			"name": "Presenter",
+			"imgName": "remote.png",
+			"class": "usb-generic"
+		},
+		{
+			"ident": "usb-mouse",
+			"name": "USB Mouse",
+			"imgName": "mouse.png",
+			"class": "usb-generic"
+		},
+		{
+			"ident": "usb-speakers",
+			"name": "Speakers",
+			"imgName": "speaker.png",
+			"class": "usb-generic"
+		},		
+		{
+			"ident": "mic-handheld",
+			"name": "Handheld Mic",
+			"imgName": "mic.png",
+			"class": "media"
+		},
+		{
+			"ident": "mic-lavalier",
+			"name": "Lavalier Mic",
+			"imgName": "lavalier.png",
+			"class": "media"
+		},
+		{
+			"ident": "mic-lavalier",
+			"name": "Lavalier Mic",
+			"imgName": "lavalier.png",
+			"class": "media"
+		}		
+	]
+}
