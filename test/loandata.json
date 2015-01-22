@@ -1,11 +1,25 @@
-"loans":[
-	{
-		"loanId": 123,
-		"loanedTo": "Justin Maslin",
-		"loanedToId": 13024960,
-		"loanedBy": "Justin Maz",
-		"loanDetails": {
-			"laptop": "1YK5XY1"
+{
+	"Loans":[
+		{
+			"loanId": 123,
+			"loanedTo": "John Doe",
+			"loanedToId": 13024960,
+			"loanedFrom": "Justin Maslin",
+			"loanAssets": [
+				{
+					"ident": "dell-laptop",
+					"name": "Dell Laptop",
+					"serialNum": "1YK5XY1",
+					"imgName":"laptop.png"
+				},
+			 	{
+					"ident": "clicker",
+					"name": "Clicker",
+					"imgName": "remote.png"
+				}			
+			]
+
 		}
-	}
-]
+	]
+
+}

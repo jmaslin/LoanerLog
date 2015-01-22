@@ -282,7 +282,7 @@
 		     				</div>
 		     			</div>
 		     			<div class="form-group">
-		     				<label for="device-choose">Click picture to add item to loan.</label>
+		     				<label for="device-choose">Click to add item to current loan.</label>
 		     				<div id="add-asset-list" class="row col-md-9">
 		     				<!-- Load from javascript -->
 		     				</div>				
@@ -326,7 +326,7 @@
 		      <div class="col-md-5">
 		      	<h4>Loan Info</h4>
 		      	<hr>
-		      	<div id="new-loan-items">
+		      	<div id="new-loan-items" class="loan-item-container">
 		      	<!-- <p id="loan-no-items"><em>No items yet.</em></p> -->
 			      	<div id="example-loan-item" class="row loan-item">
 			          <div class="loan-item-overlay">
@@ -418,7 +418,30 @@
         <h4 class="modal-title" id="modal-loan-info">Loan Info - ID <span class="loan-id"></span></h4>
       </div>
       <div class="modal-body">
-      	Loan Info ...
+      	<div class="row col-md-offset-3">
+    			<form class="form-horizontal">
+					  <div class="form-group lead">
+					    <label class="col-md-4 control-label loaned-to-text">Loaned To</label>
+					    <div class="col-md-6">
+					      <p class="form-control-static loaned-to text-primary"></p>
+					    </div>
+					  </div>
+					  <div class="form-group">
+					    <label class="col-md-4 control-label loaned-from-text">Loaned By</label>
+					    <div class="col-md-6">
+					      <p class="form-control-static loaned-from text-info"></p>
+					    </div>
+					  </div>
+					</form>
+      	</div>
+      	<div class="row">
+      		<!-- <hr> -->
+      	</div>
+     		<div class="row">
+	      	<div class=" col-md-8 col-md-offset-2 loan-item-container loan-info-asset-list">
+
+	      	</div>
+      	</div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -558,6 +581,26 @@
 
 		function updateLoanList (assetInfo) {
 
+
+
+			var newLoanItem = getLoanItemDiv(assetInfo);
+
+			// Add the loan item to visual list and hide so modifications can be made + nice entry animation
+			$('#new-loan-items').append(newLoanItem);
+			$('.loan-item-overlay').hide();
+			$('#new-loan-items .loan-item:last').hide();
+
+			// If loan item image cannot be found, load the question one
+			$('#new-loan-items .loan-item:last img').error(function() {
+				$(this).attr('src', imgDir+'question.png');
+			});
+
+			// Make our new loan item appear in the list
+			$('#new-loan-items .loan-item:last').slideDown();
+		}
+
+		function getLoanItemDiv(assetInfo) {
+
 			if (!assetInfo.serialNum) {
 				// Better error checking to determine if asset should actually have a serial
 				assetInfo.serialNum = "";
@@ -584,18 +627,7 @@
           '</div>'
 				].join('\n');
 
-				// Add the loan item to visual list and hide so modifications can be made + nice entry animation
-				$('#new-loan-items').append(newLoanItem);
-				$('.loan-item-overlay').hide();
-				$('#new-loan-items .loan-item:last').hide();
-
-				// If loan item image cannot be found, load the question one
-				$('#new-loan-items .loan-item:last img').error(function() {
-					$(this).attr('src', imgDir+'question.png');
-				});
-
-				// Make our new loan item appear in the list
-				$('#new-loan-items .loan-item:last').slideDown();
+				return newLoanItem;
 		}
 
 		// Show the adv. options in new loan modal).
@@ -615,29 +647,24 @@
 			});
 		});
 
-		// $('.loan-item').mouseenter(function() {
-		// 	var thisEl = this;	
-		// 	$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
-		// 		$(thisEl).find('.loan-item-overlay').fadeIn('fast');
-		// 	});
-		// });
-
-		$('#new-loan-items').on('mouseenter', '.loan-item', function() {
+		$('.loan-item-container').on('mouseenter', '.loan-item', function() {
 			var thisEl = this;	
 			$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
 				$(thisEl).find('.loan-item-overlay').fadeIn('fast');
 			});
 		});
 
-		$('#new-loan-items').on('mouseleave', '.loan-item', function() {
+		$('.loan-item-container').on('mouseleave', '.loan-item', function() {
 			var thisEl = this;
 			$(this).find('.loan-item-overlay').fadeOut('fast', function() {
 				$(thisEl).children(':not(.loan-item-overlay)').fadeTo(0, 1);			
 			});
 		});
 
-		$('#new-loan-items').on('click', '.loan-item-remove', function() {
+		$('.loan-item-container').on('click', '.loan-item-remove', function() {
 			var loanItem = $(this).parent().parent().parent();
+
+			// TODO: Gray out (and mark removed) if existing loan or > certain time since loan
 			$(loanItem).slideUp();
 		});
 
@@ -672,19 +699,44 @@
 
 			var loanId = $(loanMain).data('loan-id');
 
+			var modal = $(this);
+
+			// Grab data on user loan
 			$.ajax({
-				url: "/test/loandata.json",
+				dataType: 'json',
+				url: '/test/loandata.json',
 				success: function(data) {
-					console.log(data);
+					$.each(data.Loans, function(i, loanData) {
+						if (loanId == loanData.loanId) {
+							console.log("Loan ID found.");
+							modal.find('.loan-id').text(loanId);
+							modal.find('.loaned-to').text(loanData.loanedTo);
+							modal.find('.loaned-from').text(loanData.loanedFrom);
+
+							$.each(loanData.loanAssets, function(i, loanItem) {
+								var loanItem = getLoanItemDiv(loanItem);
+								$('.loan-info-asset-list').append(loanItem);
+								$('.loan-item-overlay').hide();
+								$('.loan-info-asset-list .loan-item:last').fadeTo(0, 0);
+								$('.loan-info-asset-list.loan-item:last img').error(function() {
+									$(this).attr('src', imgDir+'question.png');
+								});
+
+								// Make our new loan item appear in the list
+								$('.loan-info-asset-list .loan-item:last').fadeTo(500, 1);
+							});
+
+							// each loop for each asset to display
+						}
+					});
 				}
 			});
-			// INSERT AJAX HERE FOR LOAN INFO (Pass in loanId)
-
-			var modal = $(this);
-			modal.find('.loan-id').text(loanId);
 
 		});
 
+		$('#loan-info-modal').on('hidden.bs.modal', function(event) {
+			$('.loan-info-asset-list').children().remove();
+		});
 
 
 		// CHECK LOAN IN FROM TABLE LOG

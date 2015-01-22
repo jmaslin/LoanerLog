@@ -183,7 +183,7 @@ body {
 	height: auto;
 }
 
-#new-loan-items {
+#new-loan-items, .loan-info-asset-list {
 	/*overflow: auto;*/
 	text-align: center;
 	display: block;
