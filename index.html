@@ -281,16 +281,10 @@
 			     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" name="hdmi-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
 			     					</div>
 			     					<div class="col-md-3">
-			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" name="usb-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
 			     					</div>
 		     						<div class="col-md-3">
-			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-			     					</div>
-			     					<div class="col-md-3">
-			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
-			     					</div>
-		     						<div class="col-md-3">
-			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
 			     					</div>
 		     					</div>
 		     				</div>				
@@ -471,6 +465,7 @@
 		  $('.loan-item-overlay').hide();
 
 		  // updateLoanList('test');
+		  // getAssetInfo();
 
 		});
 
@@ -486,11 +481,11 @@
 		// This is for the images of assets in new loan modal (asset without barcodes).
 		$('.add-asset').on('click', function(e) {
 
-			var assetType = $(this).attr('name');
+			var assetType = $(this).attr('name'); // Name corresponds to asset ident
+			// updateLoanList(assetType); // Send to updateLoanList to add to visual list
+			getAssetInfo(assetType);
 
-			updateLoanList(assetType);
 			e.preventDefault();
-			// e.stopPropagation();
 		});
 
     	// <div class="row loan-item">
@@ -513,10 +508,17 @@
 	     //  </div>
       	// </div>
 
-		function updateLoanList (assetType) {
+		function updateLoanList (assetInfo) {
 
-			var asset = getAssetInfo(assetType);
-			console.log(asset);
+			if (!assetInfo.serialNum) {
+				// Better error checking to determine if asset should actually have a serial
+				assetInfo.serialNum = "";
+			}
+
+
+			// TODO: Detailed info will include notes on devices with unique idents (serialNum variable)
+			// var assetInfo = getAssetInfo(assetType); // Get detailed asset corresponding info to display 
+			// console.log(assetInfo);
 
 			var newLoanItem = 
 				[ '<div class="row loan-item">',
@@ -529,34 +531,57 @@
 					'  </div>',
 					'  <div class="col-md-2">',
 					'    <div class="loan-item-img">',
-					'      <img class="img img-responsive" width="42" src="/assets/img/'+asset.imageName+'">',
+					'      <img class="img img-responsive" width="42" src="/assets/img/'+assetInfo.imgName+'">',
           '    </div>',
           '  </div>',
           '  <div class="col-md-10 loan-item-text">',
-          '    <div class="loan-item-type text-primary lead">'+asset.type+'</div>&nbsp',
-          '    <div class="loan-item-id text-info">'+asset.id+'</div>',
+          '    <div class="loan-item-type text-primary lead">'+assetInfo.name+'</div>&nbsp',
+          '    <div class="loan-item-id text-info">'+assetInfo.serialNum+'</div>',
           '  </div>',
           '</div>'
 				].join('\n');
 
 				$('#new-loan-items').append(newLoanItem);
 				$('.loan-item-overlay').hide();
-				
+				$('#new-loan-items .loan-item:last').hide();
+				$('#new-loan-items .loan-item:last').slideDown();
+
 				// console.log(newLoanItem);
 		}
 
-		function getAssetInfo(assetType) {
+		function getAssetInfo(assetIdent) {
 
 			// AJAX submit the asset type, retrieve info.
 
-			// Temp code 
-			var asset = {
-				type: "VGA Adapter",
-				id: "Generic",
-				imageName: "vga-adapter.png"
-			}
+			var assetData = "";
 
-			return asset;
+			$.ajax({
+				dataType: 'json',
+				url: '/test/assetinfo.json',
+				data: '',
+				success: function(data) {
+					console.log(data);
+					$.each(data.Assets, function(i, asset) {
+						if (assetIdent == asset.ident) {
+							assetData = asset;
+							updateLoanList(asset);
+							return false;
+						}
+					});
+					// return assetData;
+				}
+			});
+
+			// Temp code 
+			// var asset = {
+			// 	type: "VGA Adapter",
+			// 	id: "Generic",
+			// 	imageName: "vga-adapter.png"
+			// }
+
+			// console.log("Test: "+assetData);
+
+			// return assetData;
 
 		}
 
