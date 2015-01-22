@@ -420,26 +420,26 @@
         <h4 class="modal-title" id="modal-loan-info">Loan <code>#<span class="loan-id"></span></code> Information</h4>
       </div>
       <div class="modal-body">
-      	<div class="row col-md-offset-3">
+      	<div class="row col-md-offset-2">
     			<form class="form-horizontal">
 					  <div class="form-group lead">
 					    <label class="col-md-4 control-label loaned-to-text">Loaned To</label>
 					    <div class="col-md-6">
-					      <p class="form-control-static loaned-to text-primary"></p>
+					      <p class="form-control-static loaned-to text-primary text-center"></p>
 					    </div>
 					  </div>
 					  <div class="form-group">
 					    <label class="col-md-4 control-label loaned-from-text">Loaned By</label>
 					    <div class="col-md-6">
-					      <p class="form-control-static loaned-from text-info"></p>
+					      <p class="form-control-static loaned-from text-info text-center"></p>
 					    </div>
 					  </div>
 					  <div class="form-group">
 					    <label class="col-md-4 control-label loaned-on-text">Loaned On</label>
 					    <div class="col-md-6">
-					      <p class="form-control-static loaned-on text-info">
+					      <p class="form-control-static loaned-on text-info text-center">
 					      	<code><span class="loaned-on-time"></span></code>
-					      	<span> ( </span><span class="loaned-on-date"></span><span> ) </span>     
+					      	<span data-toggle="tooltip" class="loaned-on-date label label-info"></span>
 					      </p>
 					    </div>
 					  </div>					  
@@ -725,8 +725,9 @@
 							modal.find('.loaned-to').text(loanData.loanedTo);
 							modal.find('.loaned-from').text(loanData.loanedFrom);
 
-							modal.find('.loaned-on-time').text(moment(loanData.loanedDate, 'X').format('hh:mmA'));
+							modal.find('.loaned-on-time').text(moment(loanData.loanedDate, 'X').format('hh:mm A'));
 							modal.find('.loaned-on-date').text(moment(loanData.loanedDate, 'X').startOf('day').fromNow()); // TODO: Title tooltip in MM-DD-YYYY
+							modal.find('.loaned-on-date').prop('title', moment(loanData.loanedDate, 'X').format('MM-DD-YYYY')); 
 
 							$.each(loanData.loanAssets, function(i, loanItem) {
 								var loanItem = getLoanItemDiv(loanItem);
@@ -746,6 +747,14 @@
 					});
 				}
 			});
+
+		});
+
+		$('#loan-info-modal').on('shown.bs.modal', function(event) {
+
+			  $('.loaned-on-date').tooltip({
+			  	html: $(this).prop('title')
+			  });
 
 		});
 
