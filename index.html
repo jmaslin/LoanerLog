@@ -457,6 +457,8 @@
 
 	<script type="text/javascript">
 
+		var assetData;
+
 		$( document ).ready(function() {
 
 			$('th').addClass('lead').addClass('text-center');
@@ -465,6 +467,8 @@
 		  	placement: 'bottom'
 		  });
 		  $('.loan-item-overlay').hide();
+
+		  getAssetList(); // Load our assets class
 
 		  // updateLoanList('test');
 		  // getAssetInfo();
@@ -480,6 +484,10 @@
 			// updateLogView();
 		})
 
+		/*
+		 * DEALING WITH ASSETS 
+		 */
+
 		// This is for the images of assets in new loan modal (asset without barcodes).
 		$('.add-asset').on('click', function(e) {
 
@@ -490,25 +498,14 @@
 			e.preventDefault();
 		});
 
-    	// <div class="row loan-item">
-     //    <div class="loan-item-overlay">
-      //     <!-- <span class="helper"></span> -->
-      //     <div class="align-frame">
-     //   		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
-     //   	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-     //  		<input type="image" src="/assets/img/remove.png" class="img img-responsive">
-      //     </div>
-     //    </div>
-	     //  <div class="col-md-2">
-	     //  	<div class="loan-item-img">
-	     //  		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
-	     //  	</div>
-	     //  </div>
-	     //  <div class="col-md-10 loan-item-text">
-	     //  	<div class="loan-item-type text-primary lead">Dell Laptop</div>&nbsp;
-	     //  	<div class="loan-item-id text-info">1YK5XY1</div>
-	     //  </div>
-      	// </div>
+		function getAssetInfo(assetIdent) {
+			$.each(assetData, function(i, asset) {
+				if (assetIdent == asset.ident) {
+					updateLoanList(asset);
+					return false;
+				}
+			});
+		}
 
 		function updateLoanList (assetInfo) {
 
@@ -550,40 +547,7 @@
 				// console.log(newLoanItem);
 		}
 
-		function getAssetInfo(assetIdent) {
 
-			// AJAX submit the asset type, retrieve info.
-
-			var assetData = "";
-
-			$.ajax({
-				dataType: 'json',
-				url: '/test/assetinfo.json',
-				data: '',
-				success: function(data) {
-					console.log(data);
-					$.each(data.Assets, function(i, asset) {
-						if (assetIdent == asset.ident) {
-							assetData = asset;
-							updateLoanList(asset);
-							return false;
-						}
-					});
-				}
-			});
-
-			// Temp code 
-			// var asset = {
-			// 	type: "VGA Adapter",
-			// 	id: "Generic",
-			// 	imageName: "vga-adapter.png"
-			// }
-
-			// console.log("Test: "+assetData);
-
-			// return assetData;
-
-		}
 
 		// Show the adv. options in new loan modal).
 		$('#toggle-adv-options').on('click', function(e) {
@@ -647,31 +611,35 @@
 
 		$('#loan-out-modal').on('show.bs.modal', function(event) {
 
-			addAssetList(); // Load generic asset classes into new loan module. 
-			// TODO: Maybe nice fade in for the above.
+			// getAssetList(); // Load generic asset classes into new loan module and GET/SAVE list of data.
+			// TODO: Maybe nice fade in for the above
+			// TODO: Save the asset list data into array so do not have to perform lookup everytime asset is selected to add to loan (GET request - not efficient).
+
+			// console.log(assetData);
 
 		});
 
-		function addAssetList() {
+		// var assetData = null;
 
-			// $.ajax({
-			// 	dataType: 'json',
-			// 	url: '/test/assetinfo.json',
-			// 	data: '',
-			// 	success: function(data) {
-			// 		console.log(data);
-			// 		$.each(data.Assets, function(i, asset) {
-			// 			if (assetIdent == asset.ident) {
-			// 				assetData = asset;
-			// 				updateLoanList(asset);
-			// 				return false;
-			// 			}
-			// 		});
-			// 	}
-			// });
+		function getAssetList() {
 
+			$.ajax({
+				dataType: 'json',
+				url: '/test/assetinfo.json',
+				success: function(data) {
+					saveAssetList(data.Assets);
+					// console.log("Ajax: "+data);
+				}
+			});
 
 		}
+
+
+		function saveAssetList(data) {
+			assetData = data;
+			// console.log(assetData);
+		}
+
 
 		$('#loan-info-modal').on('show.bs.modal', function(event) {
 
