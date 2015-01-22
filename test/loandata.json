@@ -5,6 +5,7 @@
 			"loanedTo": "John Doe",
 			"loanedToId": 13024960,
 			"loanedFrom": "Justin Maslin",
+			"loanedDate": 1421741189,
 			"loanAssets": [
 				{
 					"ident": "dell-laptop",
