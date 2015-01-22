@@ -39,7 +39,7 @@
 		{
 			"ident": "mic-lavalier",
 			"name": "Lavalier Mic",
-			"imgName": "mic2.png",
+			"imgName": "mic.png",
 			"class": "media"
 		}
 	]
