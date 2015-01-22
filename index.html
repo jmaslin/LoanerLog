@@ -238,12 +238,12 @@
     <div class="modal-content modal-lg">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="label">New Loaner Log Entry</h4>
+        <h4 class="modal-title" id="label">Loaner Log Entry</h4>
       </div>
       <div class="modal-body">
       	<div class="row">
       		<div class="col-md-7"> 
-		      	<h3>New Loan</h3>
+		      	<h4>New Loan</h4>
 		      	<hr>
 		      	<!-- LOAN OUT FORM -->
 		      	<form>
@@ -273,21 +273,7 @@
 		     			<div class="form-group">
 		     				<label for="device-choose">Click picture to add item to loan.</label>
 		     				<div id="add-asset-list" class="row col-md-9">
-		     					<div class="col-md-3 asset-item">
-		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-3 asset-item">
-		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" name="hdmi-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
-		     					</div>
-		     					<div class="col-md-3 asset-item">
-		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" name="usb-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-3 asset-item">
-		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-		     					</div>
-	     						<div class="col-md-3 asset-item">
-		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-		     					</div>
+		     				<!-- Load from javascript -->
 		     				</div>				
 		     			</div>
 		     			<button type="button" id="toggle-adv-options" class="btn btn-md btn-warning">Toggle Advanced Options</button>
@@ -316,8 +302,8 @@
 			     					</div>
 		     					</div>
 		     				</div>   
-<!-- TODO: Move to right side, cut off loan info size, make scrollable if longer. -->
-<!-- 		     				<div class="form-group">
+								<!-- TODO: Move to right side, cut off loan info size, make scrollable if longer. -->
+ 		     				<!--	<div class="form-group">
 		     					<label for="loan-notes">Notes</label>  				
 		     					<textarea id="loan-notes" class="form-control" rows="3"></textarea>
 		     				</div> -->
@@ -327,32 +313,11 @@
 		      	</form>
 		      </div>
 		      <div class="col-md-5">
-		      	<h3>Loan Info</h3>
+		      	<h4>Loan Info</h4>
 		      	<hr>
 		      	<div id="new-loan-items">
-		      	<!-- TODO: On loan-item hover, display three icons (asset settings, remove asset from loan). -->
-		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
-		      	<!-- TODO: Show "No Items Yet" if nothing in list. -->
-			      	<div class="row loan-item">
-			          <div class="loan-item-overlay">
-				          <!-- <span class="helper"></span> -->
-				          <div class="align-frame">
-			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
-			         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">
-				          </div>
-			          </div>
-					      <div class="col-md-2">
-					      	<div class="loan-item-img">
-					      		<img class="img img-responsive" width="42" src="/assets/img/laptop.png">
-					      	</div>
-					      </div>
-					      <div class="col-md-10 loan-item-text">
-					      	<div class="loan-item-type text-primary lead">Dell Laptop</div>&nbsp;
-					      	<div class="loan-item-id text-info">1YK5XY1</div>
-					      </div>
-			      	</div>
-			      	<div class="row loan-item">
+		      	<!-- <p id="loan-no-items"><em>No items yet.</em></p> -->
+			      	<div id="example-loan-item" class="row loan-item">
 			          <div class="loan-item-overlay">
 				          <!-- <span class="helper"></span> -->
 				          <div class="align-frame">
@@ -466,14 +431,48 @@
 		  $('[data-toggle="tooltip"]').tooltip({
 		  	placement: 'bottom'
 		  });
+
 		  $('.loan-item-overlay').hide();
 
-		  getAssetList(); // Load our assets class
-
-		  // updateLoanList('test');
-		  // getAssetInfo();
+		  getAssetList(); // Load our assets classes
 
 		});
+
+		function getAssetList() { // Grab list of assets and related info
+
+			$.ajax({
+				dataType: 'json',
+				url: '/test/assetinfo.json',
+				success: function(data) {
+					saveAssetList(data.Assets);
+				}
+			});
+
+		}
+
+		function saveAssetList(data) { // Callback function for saving asset list into global object
+			assetData = data;
+
+// 		<div class="col-md-3 asset-item">
+// 	<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+// </div>
+			$.each(assetData, function(i, asset) {
+
+				// TODO: Make sure img exists, if not, show generic
+
+				var newAssetItem = [
+					'<div class="col-md-3 asset-item">',
+					'  <input type="image" src="/assets/img/'+asset.imgName+'" id="add-vga-adapter" name="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
+					'</div>'
+				].join('\n');
+
+				$('#add-asset-list').append(newAssetItem);
+			});
+
+
+
+		}
+
 
 		$('#tableView li').on('click', 'a', function() {
 
@@ -489,7 +488,7 @@
 		 */
 
 		// This is for the images of assets in new loan modal (asset without barcodes).
-		$('.add-asset').on('click', function(e) {
+		$('#add-asset-list').on('click', '.asset-item .add-asset', function(e) {
 
 			var assetType = $(this).attr('name'); // Name corresponds to asset ident
 			// updateLoanList(assetType); // Send to updateLoanList to add to visual list
@@ -502,7 +501,7 @@
 			$.each(assetData, function(i, asset) {
 				if (assetIdent == asset.ident) {
 					updateLoanList(asset);
-					return false;
+					return false; // Break out of each loop
 				}
 			});
 		}
@@ -543,11 +542,7 @@
 				$('.loan-item-overlay').hide();
 				$('#new-loan-items .loan-item:last').hide();
 				$('#new-loan-items .loan-item:last').slideDown();
-
-				// console.log(newLoanItem);
 		}
-
-
 
 		// Show the adv. options in new loan modal).
 		$('#toggle-adv-options').on('click', function(e) {
@@ -611,6 +606,7 @@
 
 		$('#loan-out-modal').on('show.bs.modal', function(event) {
 
+			$('.add-asset').tooltip();
 			// getAssetList(); // Load generic asset classes into new loan module and GET/SAVE list of data.
 			// TODO: Maybe nice fade in for the above
 			// TODO: Save the asset list data into array so do not have to perform lookup everytime asset is selected to add to loan (GET request - not efficient).
@@ -618,28 +614,6 @@
 			// console.log(assetData);
 
 		});
-
-		// var assetData = null;
-
-		function getAssetList() {
-
-			$.ajax({
-				dataType: 'json',
-				url: '/test/assetinfo.json',
-				success: function(data) {
-					saveAssetList(data.Assets);
-					// console.log("Ajax: "+data);
-				}
-			});
-
-		}
-
-
-		function saveAssetList(data) {
-			assetData = data;
-			// console.log(assetData);
-		}
-
 
 		$('#loan-info-modal').on('show.bs.modal', function(event) {
 

@@ -39,14 +39,8 @@
 		{
 			"ident": "mic-lavalier",
 			"name": "Lavalier Mic",
-			"imgName": "lavalier.png",
+			"imgName": "mic.png",
 			"class": "media"
-		},
-		{
-			"ident": "mic-lavalier",
-			"name": "Lavalier Mic",
-			"imgName": "lavalier.png",
-			"class": "media"
-		}		
+		}
 	]
 }
