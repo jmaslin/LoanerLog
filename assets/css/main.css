@@ -157,6 +157,14 @@ body {
 	width: 45%; /* Two buttons means they each take up half of width. */
 }
 
+.img-line {
+	display: inline-block;
+}
+
+.alert-msg-text {
+	margin-bottom: 0.5em;
+}
+
 #loan-out-adv-options {
 	margin-top: 1.5em;
 }
