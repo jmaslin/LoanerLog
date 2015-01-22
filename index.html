@@ -423,6 +423,7 @@
 	<script type="text/javascript">
 
 		var assetData;
+		var imgDir="/assets/img/";
 
 		$( document ).ready(function() {
 
@@ -460,8 +461,6 @@
 // </div>
 			$.each(assetData, function(i, asset) {
 
-				var urlStart="/assets/img/";
-
 				var newAssetItem = [
 					'<div class="col-md-3 asset-item">',
 					'  <input type="image" src="/assets/img/'+asset.imgName+'" id="add-vga-adapter" name="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
@@ -471,7 +470,7 @@
 				$('#add-asset-list').append(newAssetItem);
 
 				$('#add-asset-list .asset-item:last > input').error(function() {
-					$(this).attr('src', urlStart+'question.png');
+					$(this).attr('src', imgDir+'question.png');
 				});
 			});
 
@@ -544,6 +543,10 @@
 				$('#new-loan-items').append(newLoanItem);
 				$('.loan-item-overlay').hide();
 				$('#new-loan-items .loan-item:last').hide();
+
+				$('#new-loan-items .loan-item:last img').error(function() {
+					$(this).attr('src', imgDir+'question.png');
+				});
 				$('#new-loan-items .loan-item:last').slideDown();
 		}
 
