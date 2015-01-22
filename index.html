@@ -272,20 +272,21 @@
 		     			</div>
 		     			<div class="form-group">
 		     				<label for="device-choose">Click picture to add item to loan.</label>
-		     				<div id="add-asset-list" class="row">
-		     					<div class="col-md-9">
-			     					<div class="col-md-3">
-			     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
-			     					</div>
-		     						<div class="col-md-3">
-			     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" name="hdmi-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
-			     					</div>
-			     					<div class="col-md-3">
-			     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" name="usb-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
-			     					</div>
-		     						<div class="col-md-3">
-			     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
-			     					</div>
+		     				<div id="add-asset-list" class="row col-md-9">
+		     					<div class="col-md-3 asset-item">
+		     						<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-3 asset-item">
+		     						<input type="image" src="/assets/img/hdmi-adapter.png" id="add-vga-adapter" name="hdmi-adapter" data-toggle="tooltip" title="HDMI Adapter" class="form-control add-asset img img-responsive">
+		     					</div>
+		     					<div class="col-md-3 asset-item">
+		     						<input type="image" src="/assets/img/mouse.png" id="add-mouse" name="usb-mouse" data-toggle="tooltip" title="USB Mouse" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-3 asset-item">
+		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
+		     					</div>
+	     						<div class="col-md-3 asset-item">
+		     						<input type="image" src="/assets/img/speaker.png" id="add-speakers" name="usb-speakers" data-toggle="tooltip" title="Speakers" class="form-control add-asset img img-responsive">
 		     					</div>
 		     				</div>				
 		     			</div>
@@ -331,6 +332,7 @@
 		      	<div id="new-loan-items">
 		      	<!-- TODO: On loan-item hover, display three icons (asset settings, remove asset from loan). -->
 		      	<!-- EACH ITEM WILL APPEAR WITH CLASS loan-item -->
+		      	<!-- TODO: Show "No Items Yet" if nothing in list. -->
 			      	<div class="row loan-item">
 			          <div class="loan-item-overlay">
 				          <!-- <span class="helper"></span> -->
@@ -515,7 +517,6 @@
 				assetInfo.serialNum = "";
 			}
 
-
 			// TODO: Detailed info will include notes on devices with unique idents (serialNum variable)
 			// var assetInfo = getAssetInfo(assetType); // Get detailed asset corresponding info to display 
 			// console.log(assetInfo);
@@ -568,7 +569,6 @@
 							return false;
 						}
 					});
-					// return assetData;
 				}
 			});
 
@@ -645,6 +645,34 @@
 			$('#new-loan-items').children().remove();
 		});
 
+		$('#loan-out-modal').on('show.bs.modal', function(event) {
+
+			addAssetList(); // Load generic asset classes into new loan module. 
+			// TODO: Maybe nice fade in for the above.
+
+		});
+
+		function addAssetList() {
+
+			// $.ajax({
+			// 	dataType: 'json',
+			// 	url: '/test/assetinfo.json',
+			// 	data: '',
+			// 	success: function(data) {
+			// 		console.log(data);
+			// 		$.each(data.Assets, function(i, asset) {
+			// 			if (assetIdent == asset.ident) {
+			// 				assetData = asset;
+			// 				updateLoanList(asset);
+			// 				return false;
+			// 			}
+			// 		});
+			// 	}
+			// });
+
+
+		}
+
 		$('#loan-info-modal').on('show.bs.modal', function(event) {
 
 			var button = $(event.relatedTarget);
@@ -664,6 +692,8 @@
 			modal.find('.loan-id').text(loanId);
 
 		});
+
+
 
 		// CHECK LOAN IN FROM TABLE LOG
 		$('.table-button-group').on('click', 'button.check-in', function() {

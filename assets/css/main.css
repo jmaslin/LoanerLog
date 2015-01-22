@@ -170,23 +170,6 @@ body {
 	background-color: white;
 }
 
-#add-asset-list > div {
-	display: inline-block;
-	text-align: center;
-	margin-top: 0.5em;
-	padding-left: 0;
-	padding-right: 0;
-	margin-right: 0.5em;
-}
-
-#add-asset-list > div:first-child {
-	margin-left: 15px;
-}
-
-#add-asset-list div > input {
-
-}
-
 .add-asset {
 	/*width: 80%;*/
 	height: auto;
@@ -222,13 +205,9 @@ body {
 	display: inline-block;
 }
 
-#add-asset-list > .col-md-9 > .col-md-3 {
+#add-asset-list .asset-item {
 	text-align: center;
-	/*padding: 0.25em;*/
-	/*padding: 0px;*/
-	/*padding-top: 0.5em;*/
-	/*padding-right: 0.5em;*/
-/*	margin-right: 0.5em;*/
+
 	padding-left: 0.25em;
 	padding-right: 0.25em;
 	margin-bottom: 0.5em;
