@@ -16,6 +16,9 @@
 		<link href="/components/pickadate/lib/themes/classic.css" rel="stylesheet" media="screen"></script>
 		<link href="/components/pickadate/lib/themes/classic.date.css" rel="stylesheet" media="screen"></script>
 		<link href="/components/pickadate/lib/themes/classic.time.css" rel="stylesheet" media="screen"></script>
+		<!-- SweetAlert -->
+		<script src="/components/bootstrap-sweetalert/lib/sweet-alert.js"></script>
+		<link href="/components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet" media="screen">
 
 	</head>
 	<body>
@@ -160,38 +163,46 @@
 									<tr data-loan-id="123">
 										<td>John Doe</td>
 										<td>Student</td>
-										<td>
-											<img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/vga-adapter.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/webcam.png" width="32" height="32">					
+										<td class="table-info-img">
+											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32" title="1YK5XY1" data-toggle="tooltip">
+											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+											<img class="img img-responsive img-line" src="/assets/img/vga-adapter.png" width="32" height="32">
+											<img class="img img-responsive img-line" src="/assets/img/webcam.png" width="32" height="32">					
 										</td>
 										<td>Today, 2:55pm</td>
-										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+										<td class="table-button-group">
+											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<button class="btn btn-md btn-primary check-in">Check In</button>
+										</td>
 									</tr>
 									<tr data-loan-id="123">
 										<td>John Doe</td>
 										<td>Student</td>
-										<td>
-											<img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
-											<img class="img img-responsive" src="/assets/img/webcam.png" width="32" height="32">					
+										<td class="table-info-img">
+											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
+											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+											<img class="img img-responsive img-line" src="/assets/img/webcam.png" width="32" height="32">					
 										</td>
 										<td>Today, 2:55pm</td>
-										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+										<td class="table-button-group">
+										<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
 									</tr>
 									<tr>
 										<td>John Doe</td>
 										<td>Student</td>
-										<td><img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32"></td></td>
+										<td class="table-info-img">
+											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
+										</td>
 										<td>Today, 2:55pm</td>
 										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
 									</tr>
 									<tr> 
 										<td>Jane Doe</td>
 										<td>Professor</td>
-										<td><img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32"></td>
+										<td class="table-info-img">
+											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+										</td>
 										<td>Today, 9:47am</td>
 										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
 									</tr>
@@ -485,6 +496,43 @@
 			// updateLogView();
 		})
 
+		$('#loan-table table tbody').on('click', '.table-button-group .check-in', function() {
+			
+			var userRow = $(this).parent().parent();
+			var loanData = $(userRow).find('.table-info-img').html();
+
+			if (loanData != '') {
+				var messageText = '' +
+					'<div class="alert-msg-text">Verify <u>all</u> loaned items have been returned.</div>' +
+					loanData;
+			}
+			else {
+				messageText = '<div class="alert-msg-text">Verify all loaned items have been returned.</div>';
+			}
+
+			swal({
+				title: 'Please Confirm Check In', 
+				text: messageText, 
+				type: "warning",
+				showCancelButton: true,
+				confirmButtonClass: 'btn-warning',
+				confirmButtonText: "Confirm",
+			  closeOnConfirm: false,
+			  timer: 10000
+			},
+			function() {
+				swal("Checked in!", "Make sure to put the items away.", "success");
+				$(userRow).fadeOut('slow');
+				// TODO: AJAX to complete user loan.
+			});
+
+			$('.sweet-alert').find('img').fadeTo(0, 0, function() {
+				$(this).width(48).height(48);
+				$(this).fadeTo(600, 1);
+			});
+
+		})
+
 		/*
 		 * DEALING WITH ASSETS 
 		 */
@@ -515,10 +563,6 @@
 				assetInfo.serialNum = "";
 			}
 
-			// TODO: Detailed info will include notes on devices with unique idents (serialNum variable)
-			// var assetInfo = getAssetInfo(assetType); // Get detailed asset corresponding info to display 
-			// console.log(assetInfo);
-
 			var newLoanItem = 
 				[ '<div class="row loan-item">',
 					'  <div class="loan-item-overlay">',
@@ -540,13 +584,17 @@
           '</div>'
 				].join('\n');
 
+				// Add the loan item to visual list and hide so modifications can be made + nice entry animation
 				$('#new-loan-items').append(newLoanItem);
 				$('.loan-item-overlay').hide();
 				$('#new-loan-items .loan-item:last').hide();
 
+				// If loan item image cannot be found, load the question one
 				$('#new-loan-items .loan-item:last img').error(function() {
 					$(this).attr('src', imgDir+'question.png');
 				});
+
+				// Make our new loan item appear in the list
 				$('#new-loan-items .loan-item:last').slideDown();
 		}
 
@@ -625,7 +673,7 @@
 			var loanId = $(loanMain).data('loan-id');
 
 			$.ajax({
-				url: "/testloandata.json",
+				url: "/test/loandata.json",
 				success: function(data) {
 					console.log(data);
 				}
