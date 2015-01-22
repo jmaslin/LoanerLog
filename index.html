@@ -458,7 +458,7 @@
 // 		<div class="col-md-3 asset-item">
 // 	<input type="image" src="/assets/img/vga-adapter.png" id="add-vga-adapter" name="vga-adapter" data-toggle="tooltip" title="VGA Adapter" class="form-control add-asset img img-responsive">
 // </div>
-			$.each(assetData, function(i, asset) {
+			$.each(assetData, function(v, asset) {
 
 				var urlStart="/assets/img/";
 
@@ -472,6 +472,7 @@
 
 				$('#add-asset-list .asset-item:last > input').error(function() {
 					$(this).attr('src', urlStart+'question.png');
+					console.log(i);
 				});
 			});
 
@@ -567,12 +568,6 @@
 			});
 		});
 
-		// $('.loan-item').mouseenter(function() {
-		// 	var thisEl = this;	
-		// 	$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
-		// 		$(thisEl).find('.loan-item-overlay').fadeIn('fast');
-		// 	});
-		// });
 
 		$('#new-loan-items').on('mouseenter', '.loan-item', function() {
 			var thisEl = this;	
@@ -611,14 +606,7 @@
 		});
 
 		$('#loan-out-modal').on('show.bs.modal', function(event) {
-
 			$('.add-asset').tooltip();
-			// getAssetList(); // Load generic asset classes into new loan module and GET/SAVE list of data.
-			// TODO: Maybe nice fade in for the above
-			// TODO: Save the asset list data into array so do not have to perform lookup everytime asset is selected to add to loan (GET request - not efficient).
-
-			// console.log(assetData);
-
 		});
 
 		$('#loan-info-modal').on('show.bs.modal', function(event) {
@@ -641,8 +629,6 @@
 
 		});
 
-
-
 		// CHECK LOAN IN FROM TABLE LOG
 		$('.table-button-group').on('click', 'button.check-in', function() {
 
@@ -657,15 +643,10 @@
 		});
 
 		// $('#tableViewOptions li').on('click', 'a', function() {
-
 		// 	var tableOption = $(this).parent();
-
 		// 	var hasActiveClass = $(tableOption).hasClass('active');
-
 		// 	$(tableOption).toggleClass('active');
-
 		// 	filterTableView(tableOption, hasActiveClass);
-
 		// });
 
 		function filterTableView(tableOption, isActive) {
