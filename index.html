@@ -49,16 +49,16 @@
 
 					<div id="loan-category" class="sidebar-module">
 						<div class="row">
-							<h3 class="text-primary">Loan Actions</h3>
+							<h3 class="text-primary text-center">Loan Actions</h3>
 							<hr>
-							<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal">Check Out</button>
-							<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal">Check In</button>
+							<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal"><span class="lead">Check Out</span></button>
+							<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal"><span class="lead">Check In</span></button>
 						</div>
 					</div>
 
 					<div id="loan-inventory" class="sidebar-module">
 						<div class="row">
-							<h3 class="text-primary">Current Inventory</h3>
+							<h3 class="text-primary text-center">Current Inventory</h3>
 							<hr>
 						</div>
 						<div id="loan-inventory-categories" class="row text-center"> 
@@ -94,7 +94,7 @@
 
 					<div id="loan-admin" class="sidebar-module">
 						<div class="row">
-							<h3 class="text-primary">Admin Options</h3>
+							<h3 class="text-primary text-center">Admin Options</h3>
 							<hr>
 						</div>
 						<div class="row">
@@ -436,6 +436,8 @@
 
 		  getAssetList(); // Load our assets classes
 
+		  // getLog('today'); // Get the today view of log - no use loading everything 
+
 		});
 
 		function getAssetList() { // Grab list of assets and related info
@@ -458,7 +460,7 @@
 // </div>
 			$.each(assetData, function(i, asset) {
 
-				// TODO: Make sure img exists, if not, show generic
+				var urlStart="/assets/img/";
 
 				var newAssetItem = [
 					'<div class="col-md-3 asset-item">',
@@ -467,11 +469,15 @@
 				].join('\n');
 
 				$('#add-asset-list').append(newAssetItem);
+
+				$('#add-asset-list .asset-item:last > input').error(function() {
+					$(this).attr('src', urlStart+'question.png');
+				});
 			});
 
 
-
 		}
+
 
 
 		$('#tableView li').on('click', 'a', function() {
