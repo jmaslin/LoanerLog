@@ -150,11 +150,16 @@ body {
 	display: inline-block;
 }
 
-.table-button-group > button {
+.table-button-group {
+	padding: 0.15em;
+}
+
+.table-button-group button {
 	/*margin: . 25em;*/
-	margin-left: .25em;
-	margin-right: .25em;
-	width: 45%; /* Two buttons means they each take up half of width. */
+	margin-left: .1em;
+	margin-right: .1em;
+	width: 45%;  Two buttons means they each take up half of width. 
+	display: inline-block;
 }
 
 .img-line {

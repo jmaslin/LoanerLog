@@ -1,0 +1,25 @@
+
+{
+	"_id"		: "dell-laptop",
+	"name"	: "Dell Latitude 7440",
+	"type"	: "laptop",
+	"image"	: "laptop.png",
+	"items"	: [
+		{
+			"_id"			: "1YK5XY1",
+			"type_id"	: "dell-laptop",
+			"add_date": 1421752274,
+			"status"	: "ok"
+		}
+
+		{
+			"_id"			: "BGF5XY1",
+			"type_id"	: "dell-laptop",
+			"add_date": 1421741189,
+			"status"	: "ok"
+		}
+	]
+}
+
+
+// ...

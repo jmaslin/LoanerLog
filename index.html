@@ -68,27 +68,27 @@
 						</div>
 						<div id="loan-inventory-categories" class="row text-center"> 
 						<!-- Each inventory category item gets own col-md-3 span, that way rollover looks good. Dynamically load from ajax request on available asset classes and inventories. IDs of main div (with class col-md-3) will have custom idents loaded. -->
-							<div id="loan-type-laptop1" class="inventory-item col-md-4 col-sm-6 text-center">
+							<div id="loan-type-laptop1" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/laptop.png">
 								<span class="badge">12</span>
 							</div>
-							<div id="loan-type-mic" class="inventory-item col-md-4 col-sm-6">
+							<div id="loan-type-mic" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/mic.png">
 								<span class="badge">4</span>
 							</div>
-							<div id="loan-type-remote" class="inventory-item col-md-4 col-sm-6">
+							<div id="loan-type-remote" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/remote.png">
 								<span class="badge">2</span>
 							</div>	
-							<div id="loan-type-webcam" class="inventory-item col-md-4 col-sm-6">
+							<div id="loan-type-webcam" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/webcam.png">
 								<span class="badge">1</span>
 							</div>		
-							<div id="loan-type-hdmi-adapter" class="inventory-item col-md-4 col-sm-6">
+							<div id="loan-type-hdmi-adapter" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/hdmi-adapter.png">
 								<span class="badge">4</span>
 							</div>	
-							<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-sm-6">
+							<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-sm-4">
 								<img class="img img-responsive" src="/assets/img/camera.png">
 								<span class="badge">3</span>
 							</div>																												
@@ -163,8 +163,8 @@
 								</thead>
 								<tbody>
 									<tr class="table-loan-entry" data-loan-id="123">
-										<td>John Doe</td>
-										<td>Student</td>
+										<td class="table-info-name">John Doe</td>
+										<td><span class="label label-info table-info-usertype">Student</span></td>
 										<td class="table-info-img">
 											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32" title="1YK5XY1" data-toggle="tooltip">
 											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
@@ -178,8 +178,8 @@
 										</td>
 									</tr>
 									<tr data-loan-id="123">
-										<td>John Doe</td>
-										<td>Student</td>
+										<td class="table-info-name">John Doe</td>
+										<td><span class="label label-success table-info-usertype">Faculty</span></td>
 										<td class="table-info-img">
 											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
 											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
@@ -188,7 +188,9 @@
 										</td>
 										<td>Today, 2:55pm</td>
 										<td class="table-button-group">
-										<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<button class="btn btn-md btn-primary check-in">Check In</button>
+										</td>
 									</tr>
 									<tr>
 										<td>John Doe</td>
@@ -197,7 +199,10 @@
 											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
 										</td>
 										<td>Today, 2:55pm</td>
-										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+										<td class="table-button-group">
+											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<button class="btn btn-md btn-primary check-in">Check In</button>
+										</td>
 									</tr>
 									<tr> 
 										<td>Jane Doe</td>
@@ -206,7 +211,10 @@
 											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
 										</td>
 										<td>Today, 9:47am</td>
-										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+										<td class="table-button-group">
+											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<button class="btn btn-md btn-primary check-in">Check In</button>
+										</td>
 									</tr>
 									<tr data-loan-id="123">
 										<td>John Doe</td>
@@ -218,21 +226,30 @@
 											<img class="img img-responsive" src="/assets/img/webcam.png" width="32" height="32">					
 										</td>
 										<td>Today, 2:55pm</td>
-										<td class="table-button-group"><button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button><button class="btn btn-md btn-primary check-in">Check In</button></td>
+										<td class="table-button-group">
+											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<button class="btn btn-md btn-primary check-in">Check In</button>
+										</td>
 									</tr>
 									<tr>
 										<td>John Doe</td>
 										<td>Student</td>
 										<td><img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32"></td></td>
 										<td>Today, 2:55pm</td>
-										<td class="table-button-group"><button class="btn btn-md btn-info">Info</button><button class="btn btn-md btn-primary">Check In</button></td>
+										<td class="table-button-group">
+											<button class="btn btn-md btn-info">Info</button>
+											<button class="btn btn-md btn-primary">Check In</button>
+										</td>
 									</tr>
 									<tr>
 										<td>Jane Doe</td>
 										<td>Professor</td>
 										<td><img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32"></td>
 										<td>Today, 9:47am</td>
-										<td class="table-button-group"><button class="btn btn-md btn-info">Info</button><button class="btn btn-md btn-primary">Check In</button></td>
+										<td class="table-button-group">
+											<button class="btn btn-md btn-info">Info</button>
+											<button class="btn btn-md btn-primary">Check In</button>
+										</td>
 									</tr>															
 								</tbody>
 							</table>
@@ -508,7 +525,7 @@
 			$.each(assetData, function(i, asset) {
 
 				var newAssetItem = [
-					'<div class="col-md-3 asset-item">',
+					'<div class="col-md-3 col-sm-3 col-xs-4 asset-item">',
 					'  <input type="image" src="/assets/img/'+asset.imgName+'" id="add-vga-adapter" name="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
 					'</div>'
 				].join('\n');
@@ -552,8 +569,8 @@
 				showCancelButton: true,
 				confirmButtonClass: 'btn-warning',
 				confirmButtonText: "Confirm",
-			  closeOnConfirm: false,
-			  timer: 10000
+			  closeOnConfirm: false
+			  // timer: 10000
 			},
 			function() {
 				swal("Checked in!", "Make sure to put the items away.", "success");
