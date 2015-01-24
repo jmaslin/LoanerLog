@@ -132,6 +132,14 @@ body {
  * CONTENT > LOAN TABLE
  */
 
+#log-view-head * {
+	/*display: inline-block;*/
+}
+
+#log-view-head ul {
+	/*vertical-align: bottom;*/
+}
+
 #loan-table {
 	height: 70vh;
 	overflow: auto;
@@ -159,6 +167,11 @@ body {
 	margin-left: .1em;
 	margin-right: .1em;
 	width: 45%;  Two buttons means they each take up half of width. 
+	display: inline-block;
+}
+
+.table-info-date {
+	margin-top: .5em;
 	display: inline-block;
 }
 
