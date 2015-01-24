@@ -158,16 +158,45 @@ body {
 	display: inline-block;
 }
 
+.table-info-user-name {
+
+}
+
+.table-loan-info .loan-info-asset {
+	display: inline-block;
+	vertical-align: top;
+	padding-left: 0.1em;
+	padding-right: 0.1em;
+}
+
+.loan-info-asset .badge { 
+	margin-right: 0.25em;
+}
+
+.loan-info-asset * {
+	display: inline;
+}
+
 .table-button-group {
-	padding: 0.15em;
+	/*padding: 0.15em;*/
 }
 
 .table-button-group button {
 	/*margin: . 25em;*/
 	margin-left: .1em;
 	margin-right: .1em;
-	width: 45%;  Two buttons means they each take up half of width. 
+	width: 50%;  /* Two buttons means they each take up half of width.  */
 	display: inline-block;
+}
+
+.table-info-user * {
+	display: block;
+}
+
+.table-info-user .table-info-user-type {
+	width: 70%;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .table-info-date {

@@ -29,14 +29,13 @@
 
 			<!-- HEADER -->
 			<div id="head" class="row">			
-				<div class="col-md-8">	
+				<div class="col-sm-8">	
 					<h1 class="head-item">Loaner Log <a id="org-linkback" href="#"><small class="text-primary">Intranet</small></a></h1>
 				</div>
-				<div class="col-md-4">
+				<div class="col-sm-4">
 					<div class="lead head-item user-login pull-right">
 						<p>Hello,</p> <a id="logged-in" href="#profile"><span id="user-logged-in" class="text-primary">Justin Maslin</span></a>&nbsp;
-						<button disabled type="button" class="btn btn-sm btn-warning">Lock</button>
-						<button disabled type="button" class="btn btn-sm btn-info">Logout</button>
+						<button disabled type="button" class="btn btn-sm btn-info text-right">Logout</button>
 					</div>
 				</div>
 				<div class="col-md-12">
@@ -54,41 +53,47 @@
 
 					<div id="loan-category" class="sidebar-module">
 						<div class="row">
-							<h3 class="text-primary text-center">Loan Actions</h3>
-							<hr>
-							<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal"><span class="lead">Check Out</span></button>
-							<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal"><span class="lead">Check In</span></button>
+							<div class="col-sm-12">
+								<h3 class="text-primary text-center">Loan Actions</h3>
+								<hr>
+							</div>
+							<div class="col-sm-6 col-md-12">
+								<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal"><span class="lead">Check Out</span></button>
+							</div>
+							<div class="col-sm-6 col-md-12">
+								<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal"><span class="lead">Check In</span></button>
+							</div>
 						</div>
 					</div>
 
 					<div id="loan-inventory" class="sidebar-module">
 						<div class="row">
-							<h3 class="text-primary text-center">Current Inventory</h3>
+							<h3 class="text-primary text-center">Available Inventory</h3>
 							<hr>
 						</div>
 						<div id="loan-inventory-categories" class="row text-center"> 
 						<!-- Each inventory category item gets own col-md-3 span, that way rollover looks good. Dynamically load from ajax request on available asset classes and inventories. IDs of main div (with class col-md-3) will have custom idents loaded. -->
-							<div id="loan-type-laptop1" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-laptop1" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/laptop.png">
 								<span class="badge">12</span>
 							</div>
-							<div id="loan-type-mic" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-mic" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/mic.png">
 								<span class="badge">4</span>
 							</div>
-							<div id="loan-type-remote" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-remote" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/remote.png">
 								<span class="badge">2</span>
 							</div>	
-							<div id="loan-type-webcam" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-webcam" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/webcam.png">
 								<span class="badge">1</span>
 							</div>		
-							<div id="loan-type-hdmi-adapter" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-hdmi-adapter" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/hdmi-adapter.png">
 								<span class="badge">4</span>
 							</div>	
-							<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-sm-4">
+							<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-xs-3">
 								<img class="img img-responsive" src="/assets/img/camera.png">
 								<span class="badge">3</span>
 							</div>																												
@@ -159,70 +164,85 @@
 								<thead>
 									<tr>
 										<th>Name</th>
-										<th>User Type</th>
-										<th>Loan Info</th>
-										<th>Time Loaned</th>
+										<!-- <th>User Type</th> -->
+										<th>Details</th>
+										<th>Time</th>
 										<th>Options</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr class="table-loan-entry" data-loan-id="1234">
-										<td class="table-info-name">John Fry</td>
-										<td><span class="label label-info table-info-usertype">Student</span></td>
-										<td class="table-info-img">
-											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32" title="1YK5XY1" data-toggle="tooltip">
-											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
-											<img class="img img-responsive img-line" src="/assets/img/vga-adapter.png" width="32" height="32">
-											<img class="img img-responsive img-line" src="/assets/img/camera.png" width="32" height="32">					
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
+										<td class="table-loan-info">
+											<div class="loan-info-asset">
+												<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
+												<span class="badge">2</span>
+											</div>
+											<div class="loan-info-asset">
+												<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+											</div>
+											<div class="loan-info-asset">
+												<img class="img img-responsive img-line" src="/assets/img/vga-adapter.png" width="32" height="32">
+											</div>
+											<div class="loan-info-asset">
+												<img class="img img-responsive img-line" src="/assets/img/camera.png" width="32" height="32">	
+											</div>			
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">11 minutes ago</span></code></td>
 										<td class="table-button-group">
-											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
+											<!-- <button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button> -->
 											<button class="btn btn-md btn-primary check-in">Check In</button>
 										</td>
 									</tr>
 									<tr data-loan-id="1234">
-										<td class="table-info-name">AJ Drexel</td>
-										<td><span class="label label-success table-info-usertype">Faculty</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td class="table-info-img">
-											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
 											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
 											<img class="img img-responsive img-line" src="/assets/img/remote.png" width="32" height="32">
 											<img class="img img-responsive img-line" src="/assets/img/webcam.png" width="32" height="32">					
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">3 hours ago</span></code></td>
 										<td class="table-button-group">
-											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
 											<button class="btn btn-md btn-primary check-in">Check In</button>
 										</td>
 									</tr>
 									<tr>
-										<td>Pete Miernicki</td>
-										<td><span class="label label-info table-info-usertype">Student</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td class="table-info-img">
 											<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">12:34 pm</span></code></td>
 										<td class="table-button-group">
-											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
 											<button class="btn btn-md btn-primary check-in">Check In</button>
 										</td>
 									</tr>
 									<tr> 
-										<td>G109</td>
-										<td><span class="label label-warning table-info-usertype">Room</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td class="table-info-img">
 											<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">9:47 am</span></code></td>
 										<td class="table-button-group">
-											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
 											<button class="btn btn-md btn-primary check-in">Check In</button>
 										</td>
 									</tr>
 									<tr data-loan-id="123">
-										<td>John Doe</td>
-										<td><span class="label label-info table-info-usertype">Student</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td>
 											<img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32">
 											<img class="img img-responsive" src="/assets/img/mic.png" width="32" height="32">
@@ -231,27 +251,28 @@
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">night shift</span></code></td>
 										<td class="table-button-group">
-											<button data-toggle="modal" data-target="#loan-info-modal" class="btn btn-md btn-info get-info">Info</button>
 											<button class="btn btn-md btn-primary check-in">Check In</button>
 										</td>
 									</tr>
 									<tr>
-										<td>John Doe</td>
-										<td><span class="label label-info table-info-usertype">Student</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td><img class="img img-responsive" src="/assets/img/laptop.png" width="32" height="32"></td></td>
 										<td class="table-date-row"><code><span class="table-info-date">before noon</span></code></td>
 										<td class="table-button-group">
-											<button class="btn btn-md btn-info">Info</button>
 											<button class="btn btn-md btn-primary">Check In</button>
 										</td>
 									</tr>
 									<tr>
-										<td>John Joe</td>
-										<td><span class="label label-success table-info-usertype">Faculty</span></td>
+										<td class="table-info-user">
+											<span class="table-info-user-name">John Fry</span>
+											<span class="label label-info table-info-user-type">Student</span>
+										</td>
 										<td><img class="img img-responsive" src="/assets/img/hdmi-adapter.png" width="32" height="32"></td>
 										<td class="table-date-row"><code><span class="table-info-date">1 minute ago</span></code></td>
 										<td class="table-button-group">
-											<button class="btn btn-md btn-info">Info</button>
 											<button class="btn btn-md btn-primary">Check In</button>
 										</td>
 									</tr>															
