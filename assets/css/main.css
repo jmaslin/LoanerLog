@@ -129,93 +129,12 @@ body {
 }
 
 /*
- * CONTENT > LOAN TABLE
+ * CONTENT > LOAN STUFF
  */
 
-#log-view-head * {
-	/*display: inline-block;*/
-}
-
-#log-view-head ul {
-	/*vertical-align: bottom;*/
-}
-
-#loan-table {
-	height: 70vh;
-	overflow: auto;
-}
-
-#loan-table > table {
-	background-color: white;
-
-}
 
 #tableView {
 	margin-bottom: 1em;
-}
-
-#loan-table img {
-	display: inline-block;
-}
-
-.table-info-user-name {
-
-}
-
-.table-loan-info .loan-info-asset {
-	display: inline-block;
-	vertical-align: top;
-	padding-left: 0.1em;
-	padding-right: 0.1em;
-}
-
-.loan-info-asset img {
-	height: 2em;
-}
-
-.loan-info-asset .badge { 
-	margin-right: 0.25em;
-}
-
-.loan-info-asset * {
-	display: inline;
-}
-
-.table-loan-moreinfo {
-	height: 2.5em;
-	vertical-align: middle;
-	opacity: 0;
-}
-
-.table-button-group {
-	/*padding: 0.15em;*/
-}
-
-.table-button-group button {
-	/*margin: . 25em;*/
-	margin-left: .1em;
-	margin-right: .1em;
-	width: 70%;
-	display: inline-block;
-}
-
-.table-info-user * {
-	display: block;
-}
-
-.table-info-user .table-info-user-type {
-	width: 70%;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-.table-info-date {
-	margin-top: .5em;
-	display: inline-block;
-}
-
-.img-line {
-	display: inline-block;
 }
 
 .alert-msg-text {
@@ -238,14 +157,6 @@ body {
 .add-asset {
 	/*width: 80%;*/
 	height: auto;
-}
-
-#new-loan-items, .loan-info-asset-list {
-	/*overflow: auto;*/
-	text-align: center;
-	display: block;
-	margin-top: 0.5em;
-	/*padding-left: 1em;*/
 }
 
 .loan-item {

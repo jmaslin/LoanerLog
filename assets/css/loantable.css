@@ -1,0 +1,80 @@
+/*
+ *
+ * LOAN TABLE
+ *
+ */
+
+/* The row for each individual row line. */
+.loan-row * {
+	/*vertical-align: middle;*/
+}
+
+/* 
+ * User Info Column 
+ */
+
+	.user-td * {
+		vertical-align: middle;
+
+	}
+
+	.user-td .user-name {
+		/* User's name */
+
+	}
+
+	.user-td .user-type {
+		/* User's type (faculty, student) */
+
+	}
+
+/* 
+ * User Loan Details Column 
+ */
+ 
+	.assets-td {
+		text-align: left;
+	}
+
+	.assets-td .more-info {
+		/*margin-left: 2em;*/
+		opacity: 0;
+	}
+
+	.assets-td .asset-preview {
+		/* Each asset type in user's loan */
+		display: inline-block;
+		vertical-align: top;
+
+		padding-left: 0.1em;
+		padding-right: 0.1em;	
+	}
+
+	.assets-td img {
+		height: 1.8em;
+		display: inline-block;
+	}
+
+/*
+ * User Loan Create Time
+ */
+
+	.time-td {
+
+	}
+
+/*
+ * User Loan Due Time
+ */
+
+	.due-td {
+
+	}
+
+/*
+ * User Loan In-line Options
+ */
+
+	.options-td {
+
+	}
