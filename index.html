@@ -124,7 +124,7 @@
 				<!-- SIDEBAR END -->
 
 				<!-- MAIN CONTENT -->
-				<div id="main" class="col-md-offset-1 col-md-8">
+				<div id="main" class="col-md-offset-1 col-md-8 col-xs-12">
 					
 					<div class="title">
 						<div id="log-view-head" class="row">
@@ -177,18 +177,21 @@
 											<span class="label label-info table-info-user-type">Student</span>
 										</td>
 										<td class="table-loan-info">
-											<div class="loan-info-asset">
-												<img class="img img-responsive img-line" src="/assets/img/laptop.png" width="32" height="32">
-												<span class="badge">2</span>
+											<div class="loan-info-asset table-loan-moreinfo pull-right">
+												<img class="img img-responsive img-line" src="/assets/img/info.png">
 											</div>
 											<div class="loan-info-asset">
-												<img class="img img-responsive img-line" src="/assets/img/mic.png" width="32" height="32">
+												<img class="img img-responsive img-line" src="/assets/img/laptop.png">
+												<span class="badge">14</span>
 											</div>
 											<div class="loan-info-asset">
-												<img class="img img-responsive img-line" src="/assets/img/vga-adapter.png" width="32" height="32">
+												<img class="img img-responsive img-line" src="/assets/img/mic.png">
 											</div>
 											<div class="loan-info-asset">
-												<img class="img img-responsive img-line" src="/assets/img/camera.png" width="32" height="32">	
+												<img class="img img-responsive img-line" src="/assets/img/vga-adapter.png">
+											</div>
+											<div class="loan-info-asset">
+												<img class="img img-responsive img-line" src="/assets/img/camera.png">	
 											</div>			
 										</td>
 										<td class="table-date-row"><code><span class="table-info-date">11 minutes ago</span></code></td>
@@ -379,9 +382,8 @@
 			          <div class="loan-item-overlay">
 				          <!-- <span class="helper"></span> -->
 				          <div class="align-frame">
-			         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
-			         	 	&nbsp;&nbsp;&nbsp;&nbsp;				         		
-			        		<input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">
+				         		<input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">
+				        		<input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">
 				          </div>
 			          </div>
 					      <div class="col-md-2">
@@ -390,8 +392,8 @@
 					      	</div>
 					      </div>
 					      <div class="col-md-10 loan-item-text">
-					      	<div class="loan-item-type text-primary lead">Dell Laptop</div>&nbsp;
-					      	<div class="loan-item-id text-info">1YK5XY1</div>
+					      	<div class="loan-item-type text-primary lead">Dell Laptop</div>
+					      	<code class="loan-item-id text-primary">1YK5XY1</code>
 					      </div>
 			      	</div>
 		      	
@@ -533,7 +535,7 @@
 		});
 
 		function getAssetList() { // Grab list of assets and related info
-
+ 
 			$.ajax({
 				dataType: 'json',
 				url: '/test/assetinfo.json',
@@ -567,6 +569,51 @@
 
 		}
 
+		// TABLE LOAN INFO BTN START
+
+		$('#loan-table table tbody').on(
+			{
+				mouseenter: function(event) { // Enter the row
+
+					if ($(event.target).hasClass('table-loan-info')) {
+						$(this).find('.table-loan-moreinfo').fadeTo(0, 1);
+					}
+					else {
+						$(this).find('.table-loan-moreinfo').fadeTo(0, 0.25); 
+					}
+
+					$(this).on(
+						{
+							mouseenter: function(event) {
+
+								if ($(this).hasClass('table-loan-info')) {
+									$(this).find('.table-loan-moreinfo').fadeTo(0, 1);
+									$(this).on('click', function(event) {
+										event.preventDefault();
+										console.log("CLICK -> INFO PAGE FOR LOAN ID: "+$(this).parent().attr('data-loan-id'));
+									});
+								}
+								else {
+									$(this).find('.table-loan-moreinfo').fadeTo(0, 0.25);
+								}						
+							},
+							mouseleave: function(event) {
+									$(this).parent().find('.table-loan-moreinfo').fadeTo(0, 0.25);
+							}
+						},
+					'td');
+
+				},
+				mouseleave: function(event) {
+
+					console.log("Leave row");
+					$(this).find('.table-loan-moreinfo').fadeTo(0, 0);		
+				}
+			},
+			'tr');
+
+		// TABLE LOAN INFO BTN END
+
 		$('#tableView li').on('click', 'a', function() {
 
 			$('#tableView li.active').removeClass('active');
@@ -579,12 +626,14 @@
 		$('#loan-table table tbody').on('click', '.table-button-group .check-in', function() {
 			
 			var userRow = $(this).parent().parent();
-			var loanData = $(userRow).find('.table-info-img').html();
+			var loanData = $(userRow).find('.table-loan-info').html();
 
 			if (loanData != '') {
 				var messageText = '' +
 					'<div class="alert-msg-text">Verify <u>all</u> loaned items have been returned.</div>' +
-					loanData;
+					'<div class="table-loan-info">'+
+					loanData + 
+					'</div>';
 			}
 			else {
 				messageText = '<div class="alert-msg-text">Verify all loaned items have been returned.</div>';
@@ -668,7 +717,6 @@
 					'  <div class="loan-item-overlay">',
 					'    <div class="align-frame">',
 					'      <input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">',
-					'      &nbsp;&nbsp;&nbsp;&nbsp;	',
 					'      <input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">',
 					'    </div>',
 					'  </div>',
@@ -705,24 +753,19 @@
 		});
 
 		$('.loan-item-container').on('mouseenter', '.loan-item', function() {
-			var thisEl = this;	
-			$(this).children(':not(.loan-item-overlay)').fadeTo(0, 0.1, function() {
-				$(thisEl).find('.loan-item-overlay').fadeIn('fast');
-			});
+			$(this).find('.loan-item-overlay').fadeIn('fast');
 		});
 
 		$('.loan-item-container').on('mouseleave', '.loan-item', function() {
-			var thisEl = this;
-			$(this).find('.loan-item-overlay').fadeOut('fast', function() {
-				$(thisEl).children(':not(.loan-item-overlay)').fadeTo(0, 1);			
-			});
+			$(this).find('.loan-item-overlay').fadeOut('fast');
 		});
 
 		$('.loan-item-container').on('click', '.loan-item-remove', function() {
 			var loanItem = $(this).parent().parent().parent();
 
 			// TODO: Gray out (and mark removed) if existing loan or > certain time since loan
-			$(loanItem).slideUp();
+			$(loanItem).fadeOut('fast');
+			// Show undo for a few seconds after?
 		});
 
 		// SHOW LOAN INFO FROM LOG TABLE
