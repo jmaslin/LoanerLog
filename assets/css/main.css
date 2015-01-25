@@ -169,12 +169,22 @@ body {
 	padding-right: 0.1em;
 }
 
+.loan-info-asset img {
+	height: 2em;
+}
+
 .loan-info-asset .badge { 
 	margin-right: 0.25em;
 }
 
 .loan-info-asset * {
 	display: inline;
+}
+
+.table-loan-moreinfo {
+	height: 2.5em;
+	vertical-align: middle;
+	opacity: 0;
 }
 
 .table-button-group {
@@ -185,7 +195,7 @@ body {
 	/*margin: . 25em;*/
 	margin-left: .1em;
 	margin-right: .1em;
-	width: 50%;  /* Two buttons means they each take up half of width.  */
+	width: 70%;
 	display: inline-block;
 }
 
@@ -248,11 +258,12 @@ body {
 }
 
 .loan-item-text {
-	margin-top: 0.25em;
+	padding-top: 0.25em;
+	display: block;
 }
 
-.loan-item-text div {
-	vertical-align: bottom;
+.loan-item-text * {
+	/*vertical-align: middle;*/
 	display: inline;
 }
 
@@ -272,6 +283,9 @@ body {
 }
 
 .loan-item {
+
+	text-align: left;
+
 	border: 1px solid #d8d8d8; 
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -281,7 +295,6 @@ body {
 	box-shadow: inset 0 0 0 1px #fff; 
 
 	position: relative;
-
 }
 
 .loan-item-overlay {
@@ -291,7 +304,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(162,202,136,0.45);
+  /*background-color: rgba(162,202,136,0.45);*/
   color: #fff;
 
   vertical-align: middle;
@@ -306,18 +319,19 @@ body {
 
 	display: inline-block;
 	vertical-align: middle;
-	width: 42px;
-	margin: auto;
-	height: auto;
 
-	padding-right: 0.25em;
+	width: 32px;
+
 }
 
 .align-frame {
-	text-align: center;
-  margin: 0.5em 0;  
-  height: auto;
-  width: 100%;
-  /*border: 1px solid red;*/
+
+	vertical-align: middle;
+	text-align: right;
+	padding: 0.75em 0.5em 0em 0.75em;
+	height: auto;
+	width: 100%;
+	/*border: 1px solid red;*/
   position: relative;
- }
+}
+
