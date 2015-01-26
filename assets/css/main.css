@@ -129,41 +129,12 @@ body {
 }
 
 /*
- * CONTENT > LOAN TABLE
+ * CONTENT > LOAN STUFF
  */
 
-#loan-table {
-	height: 70vh;
-	overflow: auto;
-}
-
-#loan-table > table {
-	background-color: white;
-
-}
 
 #tableView {
 	margin-bottom: 1em;
-}
-
-#loan-table img {
-	display: inline-block;
-}
-
-.table-button-group {
-	padding: 0.15em;
-}
-
-.table-button-group button {
-	/*margin: . 25em;*/
-	margin-left: .1em;
-	margin-right: .1em;
-	width: 45%;  Two buttons means they each take up half of width. 
-	display: inline-block;
-}
-
-.img-line {
-	display: inline-block;
 }
 
 .alert-msg-text {
@@ -188,14 +159,6 @@ body {
 	height: auto;
 }
 
-#new-loan-items, .loan-info-asset-list {
-	/*overflow: auto;*/
-	text-align: center;
-	display: block;
-	margin-top: 0.5em;
-	/*padding-left: 1em;*/
-}
-
 .loan-item {
 	display: block;
 	position: relative;
@@ -206,11 +169,12 @@ body {
 }
 
 .loan-item-text {
-	margin-top: 0.25em;
+	padding-top: 0.25em;
+	display: block;
 }
 
-.loan-item-text div {
-	vertical-align: bottom;
+.loan-item-text * {
+	/*vertical-align: middle;*/
 	display: inline;
 }
 
@@ -230,6 +194,9 @@ body {
 }
 
 .loan-item {
+
+	text-align: left;
+
 	border: 1px solid #d8d8d8; 
 	-moz-border-radius: 4px;
 	-webkit-border-radius: 4px;
@@ -239,7 +206,6 @@ body {
 	box-shadow: inset 0 0 0 1px #fff; 
 
 	position: relative;
-
 }
 
 .loan-item-overlay {
@@ -249,7 +215,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(162,202,136,0.45);
+  /*background-color: rgba(162,202,136,0.45);*/
   color: #fff;
 
   vertical-align: middle;
@@ -264,18 +230,19 @@ body {
 
 	display: inline-block;
 	vertical-align: middle;
-	width: 42px;
-	margin: auto;
-	height: auto;
 
-	padding-right: 0.25em;
+	width: 32px;
+
 }
 
 .align-frame {
-	text-align: center;
-  margin: 0.5em 0;  
-  height: auto;
-  width: 100%;
-  /*border: 1px solid red;*/
+
+	vertical-align: middle;
+	text-align: right;
+	padding: 0.75em 0.5em 0em 0.75em;
+	height: auto;
+	width: 100%;
+	/*border: 1px solid red;*/
   position: relative;
- }
+}
+
