@@ -20,11 +20,12 @@
 
 	.user-td .user-name {
 		/* User's name */
-
+		font-size: larger;
 	}
 
 	.user-td .user-type {
 		/* User's type (faculty, student) */
+		margin-left: 0.25em;
 
 	}
 
