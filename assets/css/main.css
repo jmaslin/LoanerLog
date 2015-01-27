@@ -7,6 +7,23 @@ body {
 	position: relative;
 }
 
+#main {
+	padding-top: 2em;
+	padding-left: 4em;
+}
+
+#side {
+	/*padding-right: 4em;*/
+}
+
+#new-loan-form > div {
+	margin-top: 0.5em;
+}
+
+#loan-form-container {
+	padding-left: 0em;
+}
+
 /*
  * TOP > HEADER
  */
@@ -162,10 +179,14 @@ body {
 .loan-item {
 	display: block;
 	position: relative;
-	padding-top: 0.5em;
+	padding: 0.5em 0;
 	margin-bottom: .5em;
-	margin-right: 1em;
-	margin-left: .5em;
+/*	margin-right: 1em;
+	margin-left: .5em;*/
+}
+
+.loan-item > div {
+	vertical-align: middle;
 }
 
 .loan-item-text {
@@ -187,7 +208,7 @@ body {
 
 	padding-left: 0.25em;
 	padding-right: 0.25em;
-	margin-bottom: 0.5em;
+	margin: 0.25em 0em;
 
 	position: relative;
 	max-width: 100%;
@@ -196,6 +217,9 @@ body {
 .loan-item {
 
 	text-align: left;
+
+	width: 32%;
+	margin: 0.45em 0.35em;
 
 	border: 1px solid #d8d8d8; 
 	-moz-border-radius: 4px;
