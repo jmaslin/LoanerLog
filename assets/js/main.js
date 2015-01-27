@@ -40,16 +40,25 @@ function saveAssetList(data) { // Callback function for saving asset list into g
 
 		var newAssetItem = [
 			'<div class="col-md-3 col-sm-3 col-xs-4 asset-item">',
-			'  <input type="image" src="/assets/img/'+asset.imgName+'" id="add-vga-adapter" name="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
+			'  <input type="image" src="/assets/img/'+asset.imgName+'" name="add-generic-asset" id="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
 			'</div>'
 		].join('\n');
 
 		$('#add-asset-list').append(newAssetItem);
+		$('#add-asset-list .asset-item:last').toggle();	
 
 		$('#add-asset-list .asset-item:last > input').error(function() {
 			$(this).attr('src', imgDir+'question.png');
 		});
+
+		// $('#add-asset-list .asset-item:last').fadeIn('fast');
+		
 	});
+	
+
+	$('#add-asset-list').children().slideDown('fast');
+
+	$('#ajax-loader').fadeToggle('slow');		
 
 }
 
@@ -177,22 +186,23 @@ function getAssetInfo(assetIdent) {
 
 function updateLoanList (assetInfo) {
 
-
+	var loanListContainer = '.loan-item-container';
 
 	var newLoanItem = getLoanItemDiv(assetInfo);
 
 	// Add the loan item to visual list and hide so modifications can be made + nice entry animation
-	$('#new-loan-items').append(newLoanItem);
+	// $('#new-loan-preview').append(newLoanItem);
+	$(loanListContainer).append(newLoanItem);
 	$('.loan-item-overlay').hide();
-	$('#new-loan-items .loan-item:last').hide();
+	$(loanListContainer+' li:last').hide();
 
 	// If loan item image cannot be found, load the question one
-	$('#new-loan-items .loan-item:last img').error(function() {
+	$('#new-loan-preview .loan-item:last img').error(function() {
 		$(this).attr('src', imgDir+'question.png');
 	});
 
 	// Make our new loan item appear in the list
-	$('#new-loan-items .loan-item:last').slideDown();
+	$(loanListContainer+' li:last').slideDown();
 }
 
 function getLoanItemDiv(assetInfo) {
@@ -203,21 +213,24 @@ function getLoanItemDiv(assetInfo) {
 	}
 
 	var newLoanItem = 
-		[ '<div class="col-sm-4 loan-item">',
+		[ 
+			'<li class="list-group-item">',
+			'<div id="'+assetInfo.ident+'" class="loan-item row">',
 			'  <div class="loan-item-overlay">',
 			'    <div class="align-frame">',
 			'      <input type="image" src="/assets/img/settings.png" class="img img-responsive loan-item-settings">',
 			'      <input type="image" src="/assets/img/remove.png" class="img img-responsive loan-item-remove">',
 			'    </div>',
 			'  </div>',
-			'  <div class="col-sm-3">',
+			'  <div class="col-md-3">',
 			'    <img class="img img-responsive" width="42" src="/assets/img/'+assetInfo.imgName+'">',
       '  </div>',
-      '  <div class="col-sm-8 loan-item-text">',
+      '  <div class="col-md-9 loan-item-text">',
       '    <div class="loan-item-type text-primary lead">'+assetInfo.name+'</div>&nbsp',
       '    <div class="loan-item-id text-info">'+assetInfo.serialNum+'</div>',
       '  </div>',
-      '</div>'
+      '</div>',
+      '</li>'
 		].join('\n');
 
 		return newLoanItem;
@@ -240,16 +253,17 @@ $('.pickadate').on('click', function() {
 	});
 });
 
-$('.loan-item-container').on('mouseenter', '.loan-item', function() {
+$('.loan-item-container').on('mouseenter', 'li .loan-item', function() {
 	$(this).find('.loan-item-overlay').fadeIn('fast');
 });
 
-$('.loan-item-container').on('mouseleave', '.loan-item', function() {
+$('.loan-item-container').on('mouseleave', 'li .loan-item', function() {
 	$(this).find('.loan-item-overlay').fadeOut('fast');
 });
 
-$('.loan-item-container').on('click', '.loan-item-remove', function() {
-	var loanItem = $(this).parent().parent().parent();
+$('.loan-item-container').on('click', 'li .loan-item-remove', function(event) {
+	var loanItem = $(this).parent().parent().parent().parent(); 
+	// Cannot use delegate target b/c forced to put li in second area since being dynamically created
 
 	// TODO: Gray out (and mark removed) if existing loan or > certain time since loan
 	$(loanItem).fadeOut('fast');
@@ -266,7 +280,7 @@ $('.loan-item-container').on('click', '.loan-item-remove', function() {
 // Hide adv options on modal close
 $('#loan-out-modal').on('hidden.bs.modal', function(event) {
 	$('#loan-out-adv-options').hide();
-	$('#new-loan-items').children().remove();
+	$('#new-loan-preview').children().remove();
 });
 
 $('#loan-out-modal').on('show.bs.modal', function(event) {
