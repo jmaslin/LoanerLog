@@ -12,6 +12,11 @@ body {
 	padding-left: 4em;
 }
 
+#page-title {
+	text-decoration: none;
+	color: black;
+}
+
 #side {
 	/*padding-right: 4em;*/
 }

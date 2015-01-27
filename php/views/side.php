@@ -10,10 +10,10 @@
 								<hr>
 							</div>
 							<div class="col-sm-6 col-md-12">
-								<button type="button" class="btn btn-info loan-btn" data-toggle="modal" data-target="#loan-out-modal"><span class="lead">Check Out</span></button>
+								<a href="/checkout.php"><button type="button" class="btn btn-success loan-btn"><span class="lead">New Loan</span></button></a>
 							</div>
 							<div class="col-sm-6 col-md-12">
-								<button type="button" class="btn btn-success loan-btn" data-toggle="modal" data-target="#loan-in-modal"><span class="lead">Check In</span></button>
+								<a href="/checkin.php"><button type="button" class="btn btn-default loan-btn"><span class="lead">Return Loan</span></button></a>
 							</div>
 						</div>
 					</div>

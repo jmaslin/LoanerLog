@@ -31,7 +31,7 @@
 			<!-- HEADER -->
 			<div id="head" class="row">			
 				<div class="col-sm-8">	
-					<h1 class="head-item">Loaner Log <a id="org-linkback" href="#"><small class="text-primary">Intranet</small></a></h1>
+					<h1 class="head-item"><a id="page-title" href="/index.php">Loaner Log</a> <a id="org-linkback" href="#"><small class="text-primary">Intranet</small></a></h1>
 				</div>
 				<div class="col-sm-4">
 					<div class="lead head-item user-login pull-right">

@@ -6,4 +6,4 @@
 
 	</div>
 
-<?php include '/php/views/footer.php'; ?>
+<?php include 'php/views/footer.php'; ?>
