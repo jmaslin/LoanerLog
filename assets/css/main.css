@@ -9,7 +9,7 @@ body {
 
 #main {
 	padding-top: 2em;
-	padding-left: 4em;
+	/*padding-left: 4em;*/
 }
 
 #page-title {
@@ -25,9 +25,6 @@ body {
 	margin-top: 0.5em;
 }
 
-#user-info-panel * {
-	margin-bottom: 0px;
-}
 
 #loan-form-container {
 	/*padding-left: 0em;*/
@@ -36,6 +33,51 @@ body {
 #loan-empty p {
 	margin-bottom: 0px;
 }
+
+.panel-footer nav .pager {
+	margin: 0em;
+}
+
+#log-panel-body {
+	padding-bottom: 0px;
+}
+
+#search-row {
+	margin-bottom: 1.5em;
+}
+
+/*
+ * NEW LOAN PAGE (temp spot)
+ */
+
+	/* User Info Panel */
+
+	#user-info-panel * {
+	margin-bottom: 0px;
+	}
+
+	#user-info * {
+		/*display: block;*/
+	}
+
+	#user-info h3 {
+		margin-top: 0px;
+	}
+
+	#user-info #user-type {
+		width: 100%;
+	}
+
+	#user-type {
+		font-size: 0.60em;
+	}
+
+	.sidebar-panel > .panel-heading {
+		background-color: white;
+		padding-top: 0em;
+		padding-bottom: 0em;
+	}
+
 /*
  * TOP > HEADER
  */
