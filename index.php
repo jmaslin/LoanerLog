@@ -4,7 +4,7 @@
 
 		<?php include 'php/views/side.php'; ?>
 		
-		<div id="main" class="col-sm-9 col-xs-12">
+		<div id="main" class="col-md-9 col-xs-12">
 			<?php include 'public/logparts/table.php'; ?>
 		</div>
 
