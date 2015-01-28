@@ -104,7 +104,7 @@ $('#loan-table tbody').on(
 		},
 		mouseleave: function(event) {
 
-			console.log("Leave row");
+			// console.log("Leave row");
 			$(this).find('.more-info').fadeTo(0, 0);		
 			//$(this).find('.loan-info-asset').css('opacity', 0.7);
 		}
