@@ -20,13 +20,21 @@
 
 	.user-td .user-name {
 		/* User's name */
-		font-size: larger;
+		padding-bottom: 0.15em;
+		width: 100%;
+	}
+
+	.user-type-1 {
+		border-bottom: 3.5px double #337ab7;
+	}
+
+	.user-type-2 {
+		border-bottom: 3.5px double #f0ad4e;
 	}
 
 	.user-td .user-type {
 		/* User's type (faculty, student) */
-		margin-left: 0.25em;
-
+		/*margin-left: 0.25em;*/
 	}
 
 /* 
@@ -52,7 +60,7 @@
 	}
 
 	.assets-td img {
-		height: 1.8em;
+		height: 1.75em;
 		display: inline-block;
 	}
 
@@ -70,6 +78,10 @@
 
 	.due-td {
 
+	}
+
+	.due-td p {
+		font-weight: bolder;
 	}
 
 /*
