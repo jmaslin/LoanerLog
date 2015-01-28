@@ -9,7 +9,7 @@
   <!-- LEFT SIDE START -->
   <div class="col-sm-7">
     <div id="loan-form-container" class="row">
-      <div class="panel panel-primary">
+      <div class="panel panel-success">
         <div class="panel-heading">
           <h3 class="panel-title">New Loan</h3>
         </div>
@@ -19,7 +19,7 @@
               <!-- <label for="user-name">Name</label> -->
               <div class="input-group">
                 <div class="input-group-addon">Name</div>
-                <input id="user-name" class="form-control" type="text" placeholder="Scan ID or enter name." autocomplete="off">
+                <input id="user-name" name="user-name" class="form-control" type="text" placeholder="Scan ID or enter name." autocomplete="off">
               </div>
             </div>
             <div class="form-group col-sm-12">
@@ -28,19 +28,22 @@
                   <!-- <input type="radio" name="forUserRadio" id="forUser2" value="false" autocomplete="off"> -->
                 <button type="button" name="forUserRadio" id="forUser1" value="true" class="btn btn-sm btn-info active">this user</button>   
                   <span for="for-user-radio"> or </span>                            
-                <button type="button" name="forUserRadio" id="forUser2" value="false" class="btn btn-sm btn-info">another user</button>   
+                <button type="button" name="forUserRadio" id="forUser2" value="false" class="btn btn-sm btn-info">another user</button>  
               </div>  
             </div> 
             <div id="reserve-for" class="form-group col-sm-8 toggle-option"> 
               <!-- <label for="loan-for-user">Loan For</label> -->
               <div class="input-group">
                 <div class="input-group-addon">For</div>
-                <input id="loan-for-user" class="form-control" type="text" placeholder="Enter a new name." autocomplete="off">
+                <input id="loan-for-user" name="loan-for-user" class="form-control" type="text" placeholder="Enter a new name." autocomplete="off">
               </div>
             </div>                     
             <div class="form-group col-sm-8">
               <label for="device-name">Add Devices</label>
-              <input id="device-name" class="form-control" type="text" placeholder="Scan or enter device ID." autocomplete="off">
+              <div class="input-group">
+                <input id="device-name" class="form-control" type="text" placeholder="Scan or enter part of device ID." autocomplete="off">
+                <span class="input-group-btn"><button class="btn btn-success">Add</button></span>
+              </div>
             </div>
             <div class="form-group col-sm-9">
               <label for="device-choose">Add Generic Device</label>
@@ -55,7 +58,7 @@
               <!-- <label for="loan-due-date">Return By</label> -->
               <div class="input-group">
                 <div class="input-group-addon">Due</div>
-                <input id="date-due-back" class="form-control pickadate" type="text" placeholder="Today" autocomplete="off">
+                <input id="date-due-back" name="date-due" class="form-control pickadate" type="text" placeholder="Today" autocomplete="off">
               </div>
             </div>             
           </form>
@@ -78,7 +81,31 @@
           <h3 class="panel-title">User Info</h3>
         </div>
         <div id="user-info-panel" class="panel-body">
-            <p class="text-muted lead text-center">No user selected.</p>
+            <p id="no-user" class="text-muted lead text-center">No user selected.</p>
+            <div id="user-info">
+              <div class="row">
+                <div class="col-sm-12 text-center">
+                  <h3 id="user-info-name" class="text-primary">Justin Maslin</h3>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-12 text-center">
+                  <h3>
+                    <span id="user-info-type" class="label label-success">Student</span>
+                    <small id="user-info-id">jtm342@drexel.edu</small>
+                  </h3>
+                </div>
+              </div>
+              <div class="row">
+                <hr>
+              </div>
+
+              <div class="row">
+                <!-- TODO: Display relevant user info 
+                (outstanding loans, previous loans (if repeat), user alerts (ie do not loan list), most frequent loan items, etc) -->
+              </div>
+
+            </div>
         </div>
       </div>
     </div>
@@ -129,6 +156,7 @@
   $( document ).ready(function() {
 
     //$('#loan-empty').hide();
+    $('#no-user').hide(); // Temp
 
     var today = moment();
 
@@ -138,18 +166,45 @@
     $('#date-due-back').attr('data-value', moment(today).format('YYYY/MM/DD'));
 
     $('.pickadate').pickadate({
-      formatSubmit: 'yyyy/mm/dd',
+      formatSubmit: 'yyyy-mm-dd',
       min: moment(today).format('YYYY/MM/DD'),
       disable: [
         1, 7
       ],
       clear: '',
+      hiddenName: true,
       container: '#add-asset-list'
     });
 
-
-
   });
+
+  $('#create-loan').click(function() {
+    $('#new-loan-form').submit();
+  });
+
+  $('#new-loan-form').on('submit', function(e) {
+    e.preventDefault();
+
+    var loanedBy = 'Justin Maslin'; // TODO: Would grab ID or something from page once integrated.
+
+    // TODO: Should probably be submitting user ID or number ID instead of name (once have info).
+
+    var newLoan = {
+      loanedTo: $('#user-name').val(),
+      loanedFor: $('#loan-for-user').val(),
+      loanAssets: loanAssets,
+      loanedBy: loanedBy,
+      loanedTime: moment().format('X')
+    }
+
+    console.log(JSON.stringify(newLoan, null, 2));
+
+    // TODO: Submit the newLoan obj to php page for processing
+
+
+    console.log("Submitted!");
+  });
+
 
   $('button[name="forUserRadio"]').on('click', function() {
 
@@ -158,6 +213,7 @@
     if ($(this).attr('id') == 'forUser1') {
       $('#forUser2').removeClass('active');
       $('#reserve-for').slideUp('fast');
+      $('#loan-for-user').val('');
     }
     else if ($(this).attr('id') == 'forUser2') {
       $('#forUser1').removeClass('active');
@@ -219,15 +275,23 @@
     }
   }
 
-  // Show calendar for long-term loan (no weekends, minimum 1 day).
-  $('.pickadate').on('click', function() {
-    $(this).pickadate({
-      min: 1,
-      disable: [
-        1, 7
-      ]
-    });
-  });
+  function getUser() {
+    /*
+     * TODO: Get user info based on what is typed (or scanned) into name field.
+     */
+  }
+
+  function getDevice() {
+    /*
+     * TODO: Submit lookup of part of device ID to database table of devices. 
+     * If find, return object with device data (name, full ID, status)
+     * If row var isLoaned = true, show pop-up asking if user wants to mark as returned from other loan
+     * If row var !isLoaned, allow device to be added to loanAssets array, store the device ID (only thing needed)
+     * Make sure device is not reserved, or loaning device out would not take inventory below reserve amount. 
+     * Use returned device info to display device in loan preview section. 
+     * If any problems, display message and what to do 
+     */
+  }
 
 
 </script>
