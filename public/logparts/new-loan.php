@@ -19,14 +19,14 @@
               <!-- <label for="user-name">Name</label> -->
               <div class="input-group">
                 <div class="input-group-addon">User</div>
-                <input id="user-name" name="user-name" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
+                <input id="user-name" name="userName" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
               </div>
             </div>
             <div class=" col-sm-12">
                 <ul id="loan-for" class="list-inline lead">
                   <li><span class="label label-default" for="for-user-type">Loan For</span></li>
                   <li><a id="this-user-true" class="link-option lead link-option-active" href="#">this user</a></li>
-                  <li><a id="this-user-false" class="link-option" href="#">someone else</a></li>
+                  <li><a id="this-user-false" class="link-option" href="#">someone</a></li>
                   <li><a id="this-user-class" class="link-option" href="#">room</a></li>
                 </ul>
                   <!-- <input type="radio" name="forUserRadio" id="forUser2" value="false" autocomplete="off"> -->
@@ -38,11 +38,11 @@
               <!-- <label for="loan-for-user">Loan For</label> -->
               <div class="input-group">
                 <div class="input-group-addon">Loan User</div>
-                <input id="loan-for-user" name="loan-for-user" class="form-control" type="text" placeholder="Who is the loan going to be for." autocomplete="off">
+                <input id="loan-for-user" name="userNameFor" class="form-control" type="text" placeholder="Who is the loan going to be for." autocomplete="off">
               </div>
             </div>
-            <div class="form-group col-sm-12">
-              <label for="device-name">Search or scan by serial or select an icon.</label>
+            <div id="asset-choose" class="form-group col-sm-12">
+              <label for="device-name">Scan, search by serial, or select an icon.</label>
               <div class="input-group">
                 <input id="device-name" class="form-control" type="text" placeholder="Scan or enter part of device ID." autocomplete="off">
                 <span class="input-group-btn"><button class="btn btn-success">Add</button></span>
@@ -62,7 +62,7 @@
               <!-- <label for="loan-due-date">Return By</label> -->
               <div class="input-group">
                 <div class="input-group-addon">Due</div>
-                <input id="date-due-back" name="date-due" class="form-control pickadate" type="text" placeholder="Today" autocomplete="off">
+                <input id="date-due-back" name="loanDue" class="form-control pickadate" placeholder="Today" autocomplete="off" data-value="">
               </div>
             </div>             
           </form>
@@ -155,31 +155,62 @@
 
 <script type="text/javascript">
 
-  var loanAssets = [];
+  var startTime; // Today global variable.
+
+  // Global loan var 
+  var loan = {
+    details: {},
+    misc: {},
+    assets: [],
+    set: function(key, val) {
+      this.details[key] = val;
+    },
+    setMisc: function(key, val) {
+      this.misc[key] = val;     
+    }
+  };
+
+  var $dateInput = $('.pickadate').pickadate();
+  var datePicker = $dateInput.pickadate('picker');
 
   $( document ).ready(function() {
 
-    //$('#loan-empty').hide();
-    $('#no-user').hide(); // Temp
-
-    var today = moment();
-
-    var dayOfWeek = moment(today).day();
-    console.log(dayOfWeek); 
-
-    $('#date-due-back').attr('data-value', moment(today).format('YYYY/MM/DD'));
-
-    $('.pickadate').pickadate({
-      formatSubmit: 'yyyy-mm-dd',
-      min: moment(today).format('YYYY/MM/DD'),
+    datePicker.set({
+      min: true,
       disable: [
         1, 7
       ],
-      clear: '',
-      hiddenName: true,
-      container: '#add-asset-list'
+      container: '#asset-choose'
     });
 
+    startTime = moment();
+
+    // TODO: Grab logged in user ID
+    loan.set('creatorId', 'jtm342');
+    loan.setMisc('startTime', moment(startTime).format('X')); // Can measure how long average loan takes 
+
+    // $('#date-due-back').attr('data-value', moment(startTime).format('YYYY/MM/DD'));
+
+    // loan.set('loanDue', $('#date-due-back').attr('data-value'));
+
+    $('#no-user').hide(); // Temp
+
+    console.log(loan.details);
+    console.log("--------------------------");
+
+  });
+
+  $('#new-loan-form input[type=text]').on('change', function(e) {
+    var id = $(e.target).attr('name');
+    var val = e.target.value;
+
+    loan.set(id, val);
+  });
+
+  $('#new-loan-form input[name="loanDue"]').on('change', function() {
+    var dueMoment = moment($(this).val(), 'DD MMMM, YYYY');
+    var unixDate = moment(dueMoment).format('X');
+    loan.set($(this).attr('name'), unixDate);
   });
 
   $('#create-loan').click(function() {
@@ -189,24 +220,41 @@
   $('#new-loan-form').on('submit', function(e) {
     e.preventDefault();
 
-    var loanedBy = 'Justin Maslin'; // TODO: Would grab ID or something from page once integrated.
+    // Set the start time for loan
+    var submitTime = moment();
+    loan.set('loanBegin', moment(submitTime).format('X')); // Set submit as time of loan.
 
-    // TODO: Should probably be submitting user ID or number ID instead of name (once have info).
-
-    var newLoan = {
-      loanedTo: $('#user-name').val(),
-      loanedFor: $('#loan-for-user').val(),
-      loanAssets: loanAssets,
-      loanedBy: loanedBy,
-      loanedTime: moment().format('X')
+    // Make sure submit time time is after start time
+    if (moment(submitTime).isBefore(startTime)) {
+      console.log("INVALID TIMES.");
     }
 
-    console.log(JSON.stringify(newLoan, null, 2));
+    var loanDue = "";
+    // Set due date to today if not specified and save into moment object.
+    if (loan.details['loanDue'] == null) {
+      loanDue = moment(startTime, 'X');
+      loan.set('loanDue', loanDue)
+    }
+    else {
+      loanDue = moment(loan.details['loanDue'], 'X');
+    }
+  
+    // Set DUE DATE [Set the hour and minute loan is due (Mon-Thurs: 9:30pm, Fri: 5:30pm)]
+    var dueDay = moment(loanDue).day();
+    if (dueDay > 0 && dueDay < 5) { // Mon - Thurs
+      loanDue = moment(loanDue).hour(21);
+    }
+    else if (dueDay == 5) {
+      loanDue = moment(loanDue).hour(17);
+    }
+    loanDue = moment(loanDue).minute(30).second(0);
+    loanDue = moment(loanDue, 'x').format('X');
+    loan.set('loanDue', loanDue);
+
+    console.log(loan);
 
     // TODO: Submit the newLoan obj to php page for processing
-
-
-    console.log("Submitted!");
+    // console.log("Submitted!");
   });
 
 
@@ -240,20 +288,6 @@
       $('#forUser1').removeClass('active');
       $('#reserve-for').slideDown('fast');
     }
-
-    // TODO: Fix clicking same button -> removes active (one or other has to be active, treat more like radio button)
-
-  });
-
-  $('input[name="forReturnDate"]').on('change', function() {
-
-    if ($(this).attr('id') == 'forReturn1') {
-      $('#due-date').slideUp('fast');
-    }
-    else if ($(this).attr('id') == 'forReturn2') {
-      $('#due-date').slideDown('fast');
-    }
-
   });
 
   $('#add-asset-list').on('click', 'input[name="add-generic-asset"]', function(e) {
@@ -262,7 +296,7 @@
     if (!$(this).hasClass('asset-empty')) {
       getAssetInfo(assetType); // Gets asset type and adds to list. TOOD: Move that function into this file for easier to read JS.
 
-      loanAssets.push(assetType);
+      loan.assets.push(assetType);
       loanHasItems();
       updateInventory(assetType);
     }
@@ -273,14 +307,13 @@
   $('.loan-item-container').on('click', '.loan-item-remove', function() {
 
     var loanItem = $(this).parent().parent().parent().parent();
-
     var assetIdent = $(this).parent().parent().parent().attr('id');
 
     //console.log($(this).parent().parent().parent().attr('id')); // TODO: Remove from form list of assets 
   //  $(loanItem).fadeOut('fast', loanHasItems);
 
-    var index = loanAssets.indexOf($(loanItem).attr('id'));
-    loanAssets.splice(index, 1);
+    var index = loan.assets.indexOf($(loanItem).attr('id'));
+    loan.assets.splice(index, 1);
 
     $(loanItem).slideUp('fast', loanHasItems);
 
@@ -293,7 +326,7 @@
   // TODO: Make this work even if elements are in list but just hidden
   function loanHasItems() {
 
-    var length = loanAssets.length;
+    var length = loan.assets.length;
 
     if (length == 0) {
       $('#loan-empty').delay(100).slideDown('fast');
@@ -330,7 +363,7 @@
       value = -1;
     }
 
-    $('#loan-inventory-categories .inventory-item[type="'+asset+'"] > span').fadeTo('fast', 0, function() {
+    $('#loan-inventory-categories #'+asset+' > span').fadeTo('fast', 0, function() {
 
       var currentInv = parseInt($(this).html()) + value;
       $(this).html(currentInv);
