@@ -35,7 +35,7 @@
 			<img class="img img-responsive" src="/assets/img/mic.png">
 			<span class="badge">4</span>
 		</div>
-		<div id="loan-type-remote" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+		<div id="inventory" type="presenter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
 			<img class="img img-responsive" src="/assets/img/remote.png">
 			<span class="badge">2</span>
 		</div>	

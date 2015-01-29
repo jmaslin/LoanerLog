@@ -15,46 +15,50 @@
         </div>
         <div class="panel-body">
           <form id="new-loan-form" class="form">
-            <div class="form-group col-sm-8">
+            <div class="form-group col-sm-12">
               <!-- <label for="user-name">Name</label> -->
               <div class="input-group">
-                <div class="input-group-addon">Name</div>
-                <input id="user-name" name="user-name" class="form-control" type="text" placeholder="Scan ID or enter name." autocomplete="off">
+                <div class="input-group-addon">User</div>
+                <input id="user-name" name="user-name" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
+              </div>
+            </div>
+            <div class=" col-sm-12">
+                <ul id="loan-for" class="list-inline lead">
+                  <li><span class="label label-default" for="for-user-type">Loan For</span></li>
+                  <li><a id="this-user-true" class="link-option lead link-option-active" href="#">this user</a></li>
+                  <li><a id="this-user-false" class="link-option" href="#">someone else</a></li>
+                  <li><a id="this-user-class" class="link-option" href="#">room</a></li>
+                </ul>
+                  <!-- <input type="radio" name="forUserRadio" id="forUser2" value="false" autocomplete="off"> -->
+                <!-- <button type="button" name="forUserRadio" id="forUser1" value="true" class="btn btn-sm btn-info active">this user</button> -->
+                <!-- <span>.</span>                        -->
+                <!-- <button type="button" name="forUserRadio" id="forUser2" value="false" class="btn btn-sm btn-info">another user</button> -->
+            </div> 
+            <div id="reserve-for" class="form-group col-sm-12 toggle-option"> 
+              <!-- <label for="loan-for-user">Loan For</label> -->
+              <div class="input-group">
+                <div class="input-group-addon">Loan User</div>
+                <input id="loan-for-user" name="loan-for-user" class="form-control" type="text" placeholder="Who is the loan going to be for." autocomplete="off">
               </div>
             </div>
             <div class="form-group col-sm-12">
-              <div data-toggle="buttons-radio">
-                <span for="for-user-radio">The loan is for</span>
-                  <!-- <input type="radio" name="forUserRadio" id="forUser2" value="false" autocomplete="off"> -->
-                <button type="button" name="forUserRadio" id="forUser1" value="true" class="btn btn-sm btn-info active">this user</button>   
-                  <span for="for-user-radio"> or </span>                            
-                <button type="button" name="forUserRadio" id="forUser2" value="false" class="btn btn-sm btn-info">another user</button>  
-              </div>  
-            </div> 
-            <div id="reserve-for" class="form-group col-sm-8 toggle-option"> 
-              <!-- <label for="loan-for-user">Loan For</label> -->
-              <div class="input-group">
-                <div class="input-group-addon">For</div>
-                <input id="loan-for-user" name="loan-for-user" class="form-control" type="text" placeholder="Enter a new name." autocomplete="off">
-              </div>
-            </div>                     
-            <div class="form-group col-sm-8">
-              <label for="device-name">Add Devices</label>
+              <label for="device-name">Search or scan by serial or select an icon.</label>
               <div class="input-group">
                 <input id="device-name" class="form-control" type="text" placeholder="Scan or enter part of device ID." autocomplete="off">
                 <span class="input-group-btn"><button class="btn btn-success">Add</button></span>
               </div>
             </div>
-            <div class="form-group col-sm-9">
-              <label for="device-choose">Add Generic Device</label>
-              <div id="add-asset-list">
+            <div class="form-group col-sm-12">
+              <!-- <label for="device-choose">Add Generic Device</label> -->
+              <div id="add-asset-list" class="row">
               <!-- Load from javascript -->
+              </div>
+              <div class="col-sm-2">
+                <img id="ajax-loader" src="/assets/img/ajax-loader.gif"> 
               </div>    
             </div>
-            <div class="col-sm-1">
-              <img id="ajax-loader" src="/assets/img/ajax-loader.gif"> 
-            </div>
-            <div class="form-group col-sm-8">
+
+            <div class="form-group col-sm-12">
               <!-- <label for="loan-due-date">Return By</label> -->
               <div class="input-group">
                 <div class="input-group-addon">Due</div>
@@ -65,7 +69,7 @@
 
         </div>
         <div class="panel-footer text-right">
-          <button id="clear-form" type="button" class="btn btn-lg btn-warning">Clear</button>          
+          <button id="clear-form" type="button" class="btn btn-warning">Clear</button>          
           <button id="create-loan" type="submit" class="btn btn-lg btn-success">Create Loan</button>
         </div>
       </div>
@@ -90,10 +94,10 @@
               </div>
               <div class="row">
                 <div class="col-sm-12 text-center">
-                  <h3>
+                  <h4>
                     <span id="user-info-type" class="label label-success">Student</span>
                     <small id="user-info-id">jtm342@drexel.edu</small>
-                  </h3>
+                  </h4>
                 </div>
               </div>
               <div class="row">
@@ -206,6 +210,23 @@
   });
 
 
+  $('ul#loan-for li').on('click', 'a', function(event) {
+    
+    if (!$(this).hasClass('link-option-active')) {
+      $('ul#loan-for li a.link-option-active').toggleClass('link-option-active');
+      $(this).toggleClass('link-option-active');
+
+      if ($(this).attr('id') == 'this-user-false') {
+        $('#reserve-for').slideDown('fast');    
+      }
+      else {
+        $('#reserve-for').slideUp('fast');
+      }
+    }
+
+  });
+
+
   $('button[name="forUserRadio"]').on('click', function() {
 
     var isForUser = $(this).val(); // Is the loan for this user or someone else?
@@ -238,10 +259,13 @@
   $('#add-asset-list').on('click', 'input[name="add-generic-asset"]', function(e) {
     var assetType = $(this).attr('id');
 
-    getAssetInfo(assetType); // Gets asset type and adds to list. TOOD: Move that function into this file for easier to read JS.
+    if (!$(this).hasClass('asset-empty')) {
+      getAssetInfo(assetType); // Gets asset type and adds to list. TOOD: Move that function into this file for easier to read JS.
 
-    loanAssets.push(assetType);
-    loanHasItems();
+      loanAssets.push(assetType);
+      loanHasItems();
+      updateInventory(assetType);
+    }
 
     e.preventDefault();
   });
@@ -250,13 +274,17 @@
 
     var loanItem = $(this).parent().parent().parent().parent();
 
-    console.log($(this).parent().parent().parent().attr('id')); // TODO: Remove from form list of assets 
+    var assetIdent = $(this).parent().parent().parent().attr('id');
+
+    //console.log($(this).parent().parent().parent().attr('id')); // TODO: Remove from form list of assets 
   //  $(loanItem).fadeOut('fast', loanHasItems);
 
     var index = loanAssets.indexOf($(loanItem).attr('id'));
     loanAssets.splice(index, 1);
 
     $(loanItem).slideUp('fast', loanHasItems);
+
+    updateInventory(assetIdent, true);
 
     // TODO: Gray out (and mark removed) if existing loan or > certain time since loan
     // Show undo for a few seconds after?
@@ -291,6 +319,33 @@
      * Use returned device info to display device in loan preview section. 
      * If any problems, display message and what to do 
      */
+  }
+
+  function updateInventory(assetType, isAdded) {
+
+    var asset = assetType;
+    var value = 1;
+
+    if (!isAdded) {
+      value = -1;
+    }
+
+    $('#loan-inventory-categories .inventory-item[type="'+asset+'"] > span').fadeTo('fast', 0, function() {
+
+      var currentInv = parseInt($(this).html()) + value;
+      $(this).html(currentInv);
+
+      if (currentInv > 0) {
+        $(this).removeClass('alert-danger');
+        $('#add-asset-list').find('#'+asset).css('border', '1px solid #ccc').removeClass('asset-empty');
+      }
+      else { // Not accounting for reservations
+        $(this).addClass('alert-danger');
+        $('#add-asset-list').find('#'+asset).css('border', '1px solid red').addClass('asset-empty');
+      }
+
+      $(this).fadeTo('fast', 1);
+    });
   }
 
 
