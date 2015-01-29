@@ -39,7 +39,7 @@ function saveAssetList(data) { // Callback function for saving asset list into g
 	$.each(assetData, function(i, asset) {
 
 		var newAssetItem = [
-			'<div class="col-md-3 col-sm-3 col-xs-4 asset-item">',
+			'<div class="col-md-2 col-sm-3 col-xs-4 asset-item">',
 			'  <input type="image" src="/assets/img/'+asset.imgName+'" name="add-generic-asset" id="'+asset.ident+'" data-toggle="tooltip" title="'+asset.name+'" class="form-control add-asset img img-responsive">',
 			'</div>'
 		].join('\n');
