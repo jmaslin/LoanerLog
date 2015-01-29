@@ -162,13 +162,16 @@
     details: {},
     misc: {},
     assets: [],
-    set: function(key, val) {
-      this.details[key] = val;
-    },
     setMisc: function(key, val) {
       this.misc[key] = val;     
     }
   };
+
+  var set =function(key, val) {
+    this[key] = val;
+  }
+
+  loan.details.set = set;
 
   var $dateInput = $('.pickadate').pickadate();
   var datePicker = $dateInput.pickadate('picker');
@@ -186,17 +189,13 @@
     startTime = moment();
 
     // TODO: Grab logged in user ID
-    loan.set('creatorId', 'jtm342');
+    loan.details.set('creatorId', 'jtm342');
     loan.setMisc('startTime', moment(startTime).format('X')); // Can measure how long average loan takes 
-
-    // $('#date-due-back').attr('data-value', moment(startTime).format('YYYY/MM/DD'));
-
-    // loan.set('loanDue', $('#date-due-back').attr('data-value'));
 
     $('#no-user').hide(); // Temp
 
     console.log(loan.details);
-    console.log("--------------------------");
+    console.log("----------");
 
   });
 
@@ -204,13 +203,14 @@
     var id = $(e.target).attr('name');
     var val = e.target.value;
 
-    loan.set(id, val);
+    loan.details.set(id, val);
+    console.log(loan.details);
   });
 
   $('#new-loan-form input[name="loanDue"]').on('change', function() {
     var dueMoment = moment($(this).val(), 'DD MMMM, YYYY');
     var unixDate = moment(dueMoment).format('X');
-    loan.set($(this).attr('name'), unixDate);
+    loan.details.set($(this).attr('name'), unixDate);
   });
 
   $('#create-loan').click(function() {
@@ -222,7 +222,7 @@
 
     // Set the start time for loan
     var submitTime = moment();
-    loan.set('loanBegin', moment(submitTime).format('X')); // Set submit as time of loan.
+    loan.details.set('loanBegin', moment(submitTime).format('X')); // Set submit as time of loan.
 
     // Make sure submit time time is after start time
     if (moment(submitTime).isBefore(startTime)) {
@@ -233,7 +233,7 @@
     // Set due date to today if not specified and save into moment object.
     if (loan.details['loanDue'] == null) {
       loanDue = moment(startTime, 'X');
-      loan.set('loanDue', loanDue)
+      loan.details.set('loanDue', loanDue);
     }
     else {
       loanDue = moment(loan.details['loanDue'], 'X');
@@ -249,7 +249,7 @@
     }
     loanDue = moment(loanDue).minute(30).second(0);
     loanDue = moment(loanDue, 'x').format('X');
-    loan.set('loanDue', loanDue);
+    loan.details.set('loanDue', loanDue);
 
     console.log(loan);
 
@@ -269,25 +269,11 @@
       }
       else {
         $('#reserve-for').slideUp('fast');
+        delete loan.details.userNameFor;
+        $('#loan-for-user').val('');
       }
     }
 
-  });
-
-
-  $('button[name="forUserRadio"]').on('click', function() {
-
-    var isForUser = $(this).val(); // Is the loan for this user or someone else?
-
-    if ($(this).attr('id') == 'forUser1') {
-      $('#forUser2').removeClass('active');
-      $('#reserve-for').slideUp('fast');
-      $('#loan-for-user').val('');
-    }
-    else if ($(this).attr('id') == 'forUser2') {
-      $('#forUser1').removeClass('active');
-      $('#reserve-for').slideDown('fast');
-    }
   });
 
   $('#add-asset-list').on('click', 'input[name="add-generic-asset"]', function(e) {
