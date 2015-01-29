@@ -47,18 +47,6 @@
 			"name": "Presenter",
 			"imgName": "remote.png",
 			"class": "usb-generic"
-		},
-		{
-			"ident": "usb-mouse",
-			"name": "USB Mouse",
-			"imgName": "mouse.png",
-			"class": "usb-generic"
-		},
-		{
-			"ident": "usb-speakers",
-			"name": "Speakers",
-			"imgName": "speaker.png",
-			"class": "usb-generic"
 		}
 	]
 }
