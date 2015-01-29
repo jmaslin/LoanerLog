@@ -20,37 +20,38 @@
 	</div>
 </div>
 
-<div id="loan-inventory" class="sidebar-module">
-	<div class="row">
-		<h3 class="text-primary text-center">Available Inventory</h3>
-		<hr>
+<div id="loan-inventory" class="panel panel-default sidebar-panel">
+	<div class="panel-heading">
+		<div class="panel-title"><h3 class="text-primary">Available Inventory</h3></div>
 	</div>
-	<div id="loan-inventory-categories" class="row text-center"> 
-	<!-- Each inventory category item gets own col-md-3 span, that way rollover looks good. Dynamically load from ajax request on available asset classes and inventories. IDs of main div (with class col-md-3) will have custom idents loaded. -->
-		<div id="loan-type-laptop1" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/laptop.png">
-			<span class="badge">12</span>
+	<div class="panel-body">
+		<div id="loan-inventory-categories" class="row text-center"> 
+<!-- TODO: Load from json, click div to load that item types invenory mgmt page (overview) -->
+			<div id="dell-laptop" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/laptop.png">
+				<span class="badge">12</span>
+			</div>
+			<div id="mic-handheld" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/mic.png">
+				<span class="badge">4</span>
+			</div>
+			<div id="presenter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/remote.png">
+				<span class="badge">2</span>
+			</div>	
+			<div id="usb-webcam" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/webcam.png">
+				<span class="badge">1</span>
+			</div>		
+			<div id="hdmi-adapter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/hdmi-adapter.png">
+				<span class="badge">4</span>
+			</div>	
+			<div id="vga-adapter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
+				<img class="img img-responsive" src="/assets/img/vga-adapter.png">
+				<span class="badge">3</span>
+			</div>																												
 		</div>
-		<div id="loan-type-mic" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/mic.png">
-			<span class="badge">4</span>
-		</div>
-		<div id="inventory" type="presenter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/remote.png">
-			<span class="badge">2</span>
-		</div>	
-		<div id="loan-type-webcam" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/webcam.png">
-			<span class="badge">1</span>
-		</div>		
-		<div id="loan-type-hdmi-adapter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/hdmi-adapter.png">
-			<span class="badge">4</span>
-		</div>	
-		<div id="loan-type-vga-adapter" class="inventory-item col-md-4 col-sm-2 col-xs-4">
-			<img class="img img-responsive" src="/assets/img/camera.png">
-			<span class="badge">3</span>
-		</div>																												
 	</div>
 <!-- Would show how many left / how many total. Example: Laptops (4/5) -->
 </div>
