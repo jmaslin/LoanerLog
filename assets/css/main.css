@@ -47,6 +47,20 @@ body {
 }
 
 /*
+ *  LINK OPTIONS
+ */
+
+.link-option:focus {
+	outline: none;
+}
+
+.link-option-active {
+	font-weight: bolder;
+	text-decoration: underline;
+}
+
+
+/*
  * NEW LOAN PAGE (temp spot)
  */
 
@@ -264,12 +278,22 @@ body {
 	display: inline-block;
 }
 
+#add-asset-list {
+	padding-left: 0.4em;
+	/*padding-right: 1em;*/
+	/*width: 100%;*/
+}
+
 #add-asset-list .asset-item {
 	text-align: center;
 
 	padding-left: 0.25em;
 	padding-right: 0.25em;
+	/*margin: 0.25em 0em;*/
 	margin: 0.25em 0em;
+
+	margin-left: .5em;
+	margin-right: .5em;
 
 	position: relative;
 	max-width: 100%;
