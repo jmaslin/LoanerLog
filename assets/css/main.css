@@ -46,19 +46,25 @@ body {
 	margin-bottom: 1.5em;
 }
 
+
 /*
  *  LINK OPTIONS
  */
+
+
 
 .link-option:focus {
 	outline: none;
 }
 
-.link-option-active {
-	font-weight: bolder;
+.link-option-active, .link-option a:hover {
 	text-decoration: underline;
 }
 
+.link-option-active {
+	font-weight: 500;
+	color: #23527c;
+}
 
 /*
  * NEW LOAN PAGE (temp spot)
@@ -348,10 +354,9 @@ body {
 
 	vertical-align: middle;
 	text-align: right;
-	padding: 0.75em 0.5em 0em 0.75em;
+	padding: 0em 0.5em 0em 0.75em;
 	height: auto;
 	width: 100%;
 	/*border: 1px solid red;*/
   position: relative;
 }
-
