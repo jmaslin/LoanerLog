@@ -357,18 +357,39 @@ $('.selectpicker').selectpicker({
     // console.log(userList);
   }
 
+  var resultsLimit = 50;
+  var resultsArray;
+  var queryArray;
+  var queryArrayCopy;
+
   $('#user-name').on({
 
     keyup: function(event) {
 
       var query = $(this).val().toLowerCase();
-      var queryArray = query.trim().split(" ");
+
+      queryArray = query.trim().split(" ");
+      queryArrayCopy = queryArray;
+
+      for (var i = queryArray.length; i >= 0; i --) {
+        if (queryArray[i] == "")
+          queryArray.splice(i, 1);
+      }
+
       var queryLength = queryArray.length;
 
-      console.log(queryArray);
+      if (event.key == " " || !listLoaded)
+        return false;
+      if (queryLength == 0) {
+        return false;
+      }
+      
+      console.log(queryLength);
       // console.log("["+event.key+"] = key");
 
-      var index = 0;
+      var count = 0;
+
+ 
 
       // Goal = all potential parts of query string should match some element in user array
       // Ie. jus = matches part first name and mas = matches part last name
@@ -380,28 +401,39 @@ $('.selectpicker').selectpicker({
        * If start w/ numbers: assume ID
        */
 
-      if ((query != '' && query.length > 2 && event.key != " ") || !listLoaded) {
+      // var isMatch = false;
 
-        $.each(users, function(i, user) {
-          $.each(user, function(i, v) {
-            var isMatch = true;
-            for (var x = queryLength; x-- > 0;) {
-              if (v.indexOf(queryArray[x]) == -1) {
-                isMatch = false;
-                // console.log("No match");
+        var start = moment().format('x');
+        $.each(users, function(i, user) { // For each user:
+
+          if (count > resultsLimit) {
+            return false; // Too many matches: break
+          }
+
+          countMatchingQueryVals = 0;
+          queryArrayCopy = queryArray.slice(0); 
+
+          $.each(user, function(i, v) { // For each spot in user array, do this:
+
+            // if (queryLength > 1)
+            // console.log(queryArrayCopy);
+
+            for (var x = queryArray.length; x >= 0; x --) { // For v, compare each query spot
+              if (v.indexOf(queryArrayCopy[x]) != -1) { // If a query spot matches this v 
+
+                countMatchingQueryVals ++; 
+                queryArrayCopy.splice(x, 1); // Remove query part from being searched again for this user to avoid false positives
               }
-              // else {
-                
-              // }
+
             }
-            if (isMatch) {
-              console.log(v+" "+query+" "+index);
-              index ++;
-            }
-            if (index > 50) {
-              return false;
-            }
-          });
+          
+          }); // Inner each loop end (each user vals)
+
+          if (countMatchingQueryVals == queryLength) {
+            count ++;
+            console.log(users[i]);
+            // resultsArray.add(users[i]);
+          }
 /*
           // console.log(user);
           var isPotentialMatch = true;
@@ -457,16 +489,13 @@ $('.selectpicker').selectpicker({
         // if id or email starts with
 
         });
-        // console.log(matchCount);
-         console.log("End");
-      }
-      else {
-        // Query does not meet mininmum reqs
-      }
+        console.log("Count: "+count);
+        var diff = moment().format('x') - start;
+        console.log(moment(diff).format('mm:ss:SS'));
+
     },
     keydown: function(e) {
-      console.log("key");
-      // e.preventDefault();
+      // console.log("Key Press");
     }
   });
 
