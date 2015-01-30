@@ -15,11 +15,16 @@
         </div>
         <div class="panel-body">
           <form id="new-loan-form" class="form">
-            <div class="form-group col-sm-12">
+            <div  class="form-group col-sm-12">
               <!-- <label for="user-name">Name</label> -->
               <div class="input-group">
                 <div class="input-group-addon">User</div>
                 <input id="user-name" name="userName" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
+                <select id="userSelect" class="selectpicker" data-live-search="true">
+                  <option>Justin M</option>
+                  <option>John Java</option>
+                  <option>Phil HP</option>
+                </select>
               </div>
             </div>
             <div class=" col-sm-12">
@@ -155,6 +160,10 @@
 
 <script type="text/javascript">
 
+$('.selectpicker').selectpicker({
+  container: '#user-name-group'
+});
+
   var startTime; // Today global variable.
 
   // Global loan var 
@@ -194,9 +203,7 @@
 
     $('#no-user').hide(); // Temp
 
-    console.log(loan.details);
-    console.log("----------");
-
+    loadUserList();
   });
 
   $('#new-loan-form input[type=text]').on('change', function(e) {
@@ -204,7 +211,7 @@
     var val = e.target.value;
 
     loan.details.set(id, val);
-    console.log(loan.details);
+    // console.log(loan.details);
   });
 
   $('#new-loan-form input[name="loanDue"]').on('change', function() {
@@ -295,14 +302,10 @@
     var loanItem = $(this).parent().parent().parent().parent();
     var assetIdent = $(this).parent().parent().parent().attr('id');
 
-    //console.log($(this).parent().parent().parent().attr('id')); // TODO: Remove from form list of assets 
-  //  $(loanItem).fadeOut('fast', loanHasItems);
-
     var index = loan.assets.indexOf($(loanItem).attr('id'));
     loan.assets.splice(index, 1);
 
     $(loanItem).slideUp('fast', loanHasItems);
-
     updateInventory(assetIdent, true);
 
     // TODO: Gray out (and mark removed) if existing loan or > certain time since loan
@@ -321,6 +324,151 @@
       $('#loan-empty').slideUp(200);
     }
   }
+
+  var users = [];
+  var listLoaded = false;
+
+  function loadUserList() {
+
+    $.ajax({
+      dataType: 'json',
+      url: "/test/testusers.json",
+      success: function(data) {
+        saveUserList(data);
+      }
+    }); 
+  }
+
+  function saveUserList(data) {
+    
+    $.each(data.rs, function(i, user) {
+      user = user.toLowerCase();
+      var userArray = user.split(/[#, ]/);
+      for (var i = userArray.length; i >= 0; i --) {
+        if (userArray[i] == "")
+          userArray.splice(i, 1);
+      }
+      users.push(userArray);
+    });
+
+    // console.log(users);
+    // userList = data;
+    listLoaded = true;
+    // console.log(userList);
+  }
+
+  $('#user-name').on({
+
+    keyup: function(event) {
+
+      var query = $(this).val().toLowerCase();
+      var queryArray = query.trim().split(" ");
+      var queryLength = queryArray.length;
+
+      console.log(queryArray);
+      // console.log("["+event.key+"] = key");
+
+      var index = 0;
+
+      // Goal = all potential parts of query string should match some element in user array
+      // Ie. jus = matches part first name and mas = matches part last name
+
+      /*
+       * Proposed Detection Methods: 
+       * If detect space: assume search includes first/last name 
+       * If letters + numbers: assume email
+       * If start w/ numbers: assume ID
+       */
+
+      if ((query != '' && query.length > 2 && event.key != " ") || !listLoaded) {
+
+        $.each(users, function(i, user) {
+          $.each(user, function(i, v) {
+            var isMatch = true;
+            for (var x = queryLength; x-- > 0;) {
+              if (v.indexOf(queryArray[x]) == -1) {
+                isMatch = false;
+                // console.log("No match");
+              }
+              // else {
+                
+              // }
+            }
+            if (isMatch) {
+              console.log(v+" "+query+" "+index);
+              index ++;
+            }
+            if (index > 50) {
+              return false;
+            }
+          });
+/*
+          // console.log(user);
+          var isPotentialMatch = true;
+
+            for (var x = queryLength; x-- > 0;) {
+
+              var queryStringHasMatch = false;
+              for (var y = 0; y < 3; y ++) {
+
+                if (user[y].indexOf(queryArray[x]) > -1) { 
+                  queryStringHasMatch = true;       
+                  break;
+                }
+
+              }
+
+              if (!queryStringHasMatch) {
+                isPotentialMatch = false;
+                // That position in query array does not match anything in user
+                break; // Do not keep going
+              }
+
+            } // End outer for loop
+           
+            if (isPotentialMatch) {
+              index++;
+              console.log("Query: "+queryArray + "\nUser: "+user);
+            }
+            // Compare spots to their counterparts and get matches from each spots
+
+          console.log(index);
+          if (index > 10) {
+            console.log(i+" "+index);
+            return false;
+          }
+*/
+          // if (userArray[0].indexOf(query) > -1) {
+          //   if (name.indexOf(" "+query) > -1) {
+          //     console.log("Probably first name");
+          //   }
+          //   matchCount++;
+          //   var percentMatched = matchCount/userList.rs.length;
+          //   percentMatched = Number(percentMatched).toFixed(4);
+          //   percentMatched *= 100;
+          //   console.log(percentMatched+" %\nARRAY:");
+          //   for (var x=0; x<userArray.length; x++) {
+          //     if (userArray[x] != '')
+          //       console.log(userArray[x]);
+          //   }
+          //   if (percentMatched > 1)
+          //     return false;
+          //}
+        // if id or email starts with
+
+        });
+        // console.log(matchCount);
+         console.log("End");
+      }
+      else {
+        // Query does not meet mininmum reqs
+      }
+    },
+    keydown: function(e) {
+      console.log("key");
+      // e.preventDefault();
+    }
+  });
 
   function getUser() {
     /*
