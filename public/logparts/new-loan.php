@@ -20,12 +20,9 @@
               <div class="input-group">
                 <div class="input-group-addon">User</div>
                 <input id="user-name" name="userName" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
-                <select id="userSelect" class="selectpicker" data-live-search="true">
-                  <option>Justin M</option>
-                  <option>John Java</option>
-                  <option>Phil HP</option>
-                </select>
               </div>
+              <select id="userSelect" class="selectpicker" data-live-search="false">
+              </select>  
             </div>
             <div class=" col-sm-12">
                 <ul id="loan-for" class="list-inline lead">
@@ -161,8 +158,11 @@
 <script type="text/javascript">
 
 $('.selectpicker').selectpicker({
-  container: '#user-name-group'
+  size: 10,
+  showSubtext: true
 });
+
+// TODO: data-icon for user type
 
   var startTime; // Today global variable.
 
@@ -176,7 +176,7 @@ $('.selectpicker').selectpicker({
     }
   };
 
-  var set =function(key, val) {
+  var set = function(key, val) {
     this[key] = val;
   }
 
@@ -204,6 +204,7 @@ $('.selectpicker').selectpicker({
     $('#no-user').hide(); // Temp
 
     loadUserList();
+
   });
 
   $('#new-loan-form input[type=text]').on('change', function(e) {
@@ -357,8 +358,18 @@ $('.selectpicker').selectpicker({
     // console.log(userList);
   }
 
-  var resultsLimit = 50;
-  var resultsArray;
+  var add = function(key, val) {
+    this[key] = val;
+  }
+
+  var resultsLimit = 20;
+  var results = [];
+
+  // results.add = set;
+  String.prototype.capitalize = function() {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+  }
+
   var queryArray;
   var queryArrayCopy;
 
@@ -388,8 +399,6 @@ $('.selectpicker').selectpicker({
       // console.log("["+event.key+"] = key");
 
       var count = 0;
-
- 
 
       // Goal = all potential parts of query string should match some element in user array
       // Ie. jus = matches part first name and mas = matches part last name
@@ -430,11 +439,19 @@ $('.selectpicker').selectpicker({
           }); // Inner each loop end (each user vals)
 
           if (countMatchingQueryVals == queryLength) {
+            
             count ++;
-            console.log(users[i]);
-            // resultsArray.add(users[i]);
+
+            results.push({
+              firstName : users[i][1].capitalize(),
+              lastName  : users[i][0].capitalize(),
+              email     : users[i][2],
+              idNum     : users[i][3]
+            });
+
+            // results.push(users[i]);
           }
-/*
+          /*
           // console.log(user);
           var isPotentialMatch = true;
 
@@ -493,9 +510,37 @@ $('.selectpicker').selectpicker({
         var diff = moment().format('x') - start;
         console.log(moment(diff).format('mm:ss:SS'));
 
+        $.each(results, function(i, user) {
+
+          if (user.firstName != null && i <= count) {
+
+            if (user.email.substring(user.email.length - 11, user.email.length) == '@drexel.edu') {
+              user.email = user.email.substring(0, user.email.length - 11);              
+            }
+
+            var option = '<option id="'+user.idNum+'" data-subtext="'+user.email+'">'+user.firstName+' '+user.lastName+'</option>';
+
+            $(option).appendTo('#userSelect');
+            // $('#userSelect:last').hide();
+            // $('.selectpicker').selectpicker('render');
+
+            // $('#userSelect').fadeIn('fast');
+          }
+
+        });
+
+       $('.selectpicker').selectpicker('refresh');        
+       // $('.selectpicker').selectpicker('show');
+
+
     },
     keydown: function(e) {
       // console.log("Key Press");
+      results = [];
+      // $('.selectpicker').selectpicker('hide');
+      $('#userSelect').empty();
+      $('.selectpicker').selectpicker('render');        
+
     }
   });
 
