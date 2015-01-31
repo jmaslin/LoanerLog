@@ -19,6 +19,9 @@
   "dependencies": {
     "bootstrap": "~3.3.2",
     "pickadate": "~3.5.4",
-    "bootstrap-sweetalert": "latest"
+    "bootstrap-sweetalert": "latest",
+    "hideseek": "latest",
+    "moment": "latest",
+    "bootstrap-select": "latest"
   }
 }
