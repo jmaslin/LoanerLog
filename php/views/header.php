@@ -22,7 +22,11 @@
 		<link href="/components/bootstrap-sweetalert/lib/sweet-alert.css" rel="stylesheet" media="screen">
 		<!-- Moment -->
 		<script src="/components/moment/min/moment.min.js"></script>
-
+		<!-- HideSeek -->
+		<script src="/components/hideseek/jquery.hideseek.min.js"></script>
+		<!-- Bootstrap Select -->
+		<link href="/components/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet" media="screen">
+		<script src="/components/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
 	</head>
 	<body>
 
