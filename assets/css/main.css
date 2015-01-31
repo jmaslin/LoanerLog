@@ -46,6 +46,15 @@ body {
 	margin-bottom: 1.5em;
 }
 
+/*
+ * New loan misc
+ */
+
+ #userSelect {
+ 	margin-left: auto;
+ 	margin-right: auto;
+ 	width: 50%;
+ }
 
 /*
  *  LINK OPTIONS
