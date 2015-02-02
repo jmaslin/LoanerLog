@@ -19,10 +19,10 @@
               <!-- <label for="user-name">Name</label> -->
               <div class="input-group">
                 <div class="input-group-addon">User</div>
-                <input id="user-name" name="userName" class="form-control" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off">
+                <input id="user-name" name="userName" class="form-control" list="userSelect" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off" required>
               </div>
-              <select id="userSelect" class="selectpicker" data-live-search="false">
-              </select>  
+              <datalist id="userSelect" class="" data-live-search="false">
+              </datalist>  
             </div>
             <div class=" col-sm-12">
                 <ul id="loan-for" class="list-inline lead">
@@ -344,12 +344,14 @@ $('.selectpicker').selectpicker({
     
     $.each(data.rs, function(i, user) {
       user = user.toLowerCase();
-      var userArray = user.split(/[#, ]/);
+      var userArray = user.split(/[#]/);
       for (var i = userArray.length; i >= 0; i --) {
         if (userArray[i] == "")
           userArray.splice(i, 1);
       }
-      users.push(userArray);
+      var userName = userArray[0].split(/,\s/, 2)
+      userArray.splice(0, 1, userName[0], userName[1]);
+      users.push(userArray);;
     });
 
     // console.log(users);
@@ -372,10 +374,11 @@ $('.selectpicker').selectpicker({
 
   var queryArray;
   var queryArrayCopy;
+  var regenList = true;
 
   $('#user-name').on({
 
-    keyup: function(event) {
+    input: function(event) {
 
       var query = $(this).val().toLowerCase();
 
@@ -395,7 +398,7 @@ $('.selectpicker').selectpicker({
         return false;
       }
       
-      console.log(queryLength);
+      // console.log(queryLength);
       // console.log("["+event.key+"] = key");
 
       var count = 0;
@@ -415,8 +418,10 @@ $('.selectpicker').selectpicker({
         var start = moment().format('x');
         $.each(users, function(i, user) { // For each user:
 
-          if (count > resultsLimit) {
-            return false; // Too many matches: break
+          if (count >= resultsLimit) {
+           regenList = true;
+           // console.log("true");
+           return false; // Too many matches: break  
           }
 
           countMatchingQueryVals = 0;
@@ -441,6 +446,13 @@ $('.selectpicker').selectpicker({
           if (countMatchingQueryVals == queryLength) {
             
             count ++;
+
+            if (users[i].length != 4) {
+              console.log("Not regular length: ");
+              // What to do when user does not match regular 
+              for (var x = 0; x < users[i].length; x ++)
+                console.log(users[i][x]);
+            }
 
             results.push({
               firstName : users[i][1].capitalize(),
@@ -508,38 +520,65 @@ $('.selectpicker').selectpicker({
         });
         console.log("Count: "+count);
         var diff = moment().format('x') - start;
-        console.log(moment(diff).format('mm:ss:SS'));
+        // console.log(moment(diff).format('mm:ss:SS'));
 
-        $.each(results, function(i, user) {
+        // if (count >= 20) {
+          // $('#userSelect').hide();
+          $('#userSelect').empty();
 
-          if (user.firstName != null && i <= count) {
+          $.each(results, function(i, user) {
 
-            if (user.email.substring(user.email.length - 11, user.email.length) == '@drexel.edu') {
-              user.email = user.email.substring(0, user.email.length - 11);              
+            if (user.firstName != null && user.idNum != null) {
+
+              if (user.email.substring(user.email.length - 11, user.email.length) == '@drexel.edu') {
+                user.email = user.email.substring(0, user.email.length - 11);              
+              }
+
+              var option = '<option id="'+user.idNum+'" label="'+user.email+'">'+user.firstName+' '+user.lastName+'</option>';
+
+              $(option).appendTo('#userSelect');
+
+              // console.log(option);
+
+              // console.log("Option added");
+
+
+              // $('#userSelect:last').hide();
+              // $('.selectpicker').selectpicker('render');
+
+              // $('#userSelect').fadeIn('fast');
+            }
+            else {
+              console.log(user);
             }
 
-            var option = '<option id="'+user.idNum+'" data-subtext="'+user.email+'">'+user.firstName+' '+user.lastName+'</option>';
+          });          
+              // $('#userSelect').show();
 
-            $(option).appendTo('#userSelect');
-            // $('#userSelect:last').hide();
-            // $('.selectpicker').selectpicker('render');
+          // $('#userSelect').trigger();
+          // results = [];
 
-            // $('#userSelect').fadeIn('fast');
-          }
+        // }
+        // else {
+        //   console.log("Regen false");
+        // }
 
-        });
+        //regenList = false;
 
-       $('.selectpicker').selectpicker('refresh');        
+
+       // $('.selectpicker').selectpicker('refresh');        
        // $('.selectpicker').selectpicker('show');
 
 
     },
     keydown: function(e) {
       // console.log("Key Press");
-      results = [];
+      // results = [];
       // $('.selectpicker').selectpicker('hide');
-      $('#userSelect').empty();
-      $('.selectpicker').selectpicker('render');        
+
+      // if (regenList)
+        // $('#userSelect').empty();
+      // $('.selectpicker').selectpicker('render');        
 
     }
   });
