@@ -21,8 +21,11 @@
                 <div class="input-group-addon">User</div>
                 <input id="user-name" name="userName" class="form-control" list="userSelect" type="text" placeholder="Have user scan ID or enter their name." autocomplete="off" required>
               </div>
-              <datalist id="userSelect" class="" data-live-search="false">
-              </datalist>  
+              <select id="userSelect" class="selectpicker" data-width="100%" data-size="5">
+
+              </select>
+              <!-- <datalist id="userSelect" class="" data-live-search="false"> -->
+              <!-- </datalist>   -->
             </div>
             <div class=" col-sm-12">
                 <ul id="loan-for" class="list-inline lead">
@@ -91,14 +94,14 @@
             <div id="user-info">
               <div class="row">
                 <div class="col-sm-12 text-center">
-                  <h3 id="user-info-name" class="text-primary">Justin Maslin</h3>
+                  <h3 id="user-info-name" class="info-spot text-primary"><!-- Justin Maslin --></h3>
                 </div>
               </div>
               <div class="row">
                 <div class="col-sm-12 text-center">
                   <h4>
-                    <span id="user-info-type" class="label label-success">Student</span>
-                    <small id="user-info-id">jtm342@drexel.edu</small>
+                    <span id="user-info-type" class="info-spot label label-success"><!-- Student --></span>
+                    <small id="user-info-id" class="info-spot"><!-- jtm342@drexel.edu --></small>
                   </h4>
                 </div>
               </div>
@@ -201,9 +204,11 @@ $('.selectpicker').selectpicker({
     loan.details.set('creatorId', 'jtm342');
     loan.setMisc('startTime', moment(startTime).format('X')); // Can measure how long average loan takes 
 
-    $('#no-user').hide(); // Temp
+    // $('#no-user').hide(); // Temp
 
+    $('#user-info').fadeTo(0, 0);
     loadUserList();
+
 
   });
 
@@ -351,7 +356,15 @@ $('.selectpicker').selectpicker({
       }
       var userName = userArray[0].split(/,\s/, 2)
       userArray.splice(0, 1, userName[0], userName[1]);
-      users.push(userArray);;
+
+      if (userArray.length != 4) {
+        // What to do when user does not match regular 
+        if (userArray[2].indexOf('@') == -1) {
+          userArray.splice(2, 0, 'needsMail');
+        }
+      }
+
+      users.push(userArray);
     });
 
     // console.log(users);
@@ -371,14 +384,30 @@ $('.selectpicker').selectpicker({
   String.prototype.capitalize = function() {
     return this.charAt(0).toUpperCase() + this.slice(1);
   }
+  String.prototype.toProperCase = function () {
+      return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+  };
 
   var queryArray;
   var queryArrayCopy;
   var regenList = true;
 
+  var timeout;
+
   $('#user-name').on({
 
+    // click: function(e) {      
+    // },
+
     input: function(event) {
+
+      if (timeout) {
+        clearTimeout(timeout);
+        timeout = null;
+      }
+
+      $('#user-info').fadeTo('fast', 0.5);
+      timeout = setTimeout(getUser, 400);
 
       var query = $(this).val().toLowerCase();
 
@@ -395,6 +424,9 @@ $('.selectpicker').selectpicker({
       if (event.key == " " || !listLoaded)
         return false;
       if (queryLength == 0) {
+        $('#userSelect').empty();
+        $('.selectpicker').selectpicker('refresh');
+        results = [];
         return false;
       }
       
@@ -432,6 +464,7 @@ $('.selectpicker').selectpicker({
             // if (queryLength > 1)
             // console.log(queryArrayCopy);
 
+            // TOOD: ? Assign higher vals for matching (ie email ID more weight than name)
             for (var x = queryArray.length; x >= 0; x --) { // For v, compare each query spot
               if (v.indexOf(queryArrayCopy[x]) != -1) { // If a query spot matches this v 
 
@@ -447,16 +480,9 @@ $('.selectpicker').selectpicker({
             
             count ++;
 
-            if (users[i].length != 4) {
-              console.log("Not regular length: ");
-              // What to do when user does not match regular 
-              for (var x = 0; x < users[i].length; x ++)
-                console.log(users[i][x]);
-            }
-
             results.push({
-              firstName : users[i][1].capitalize(),
-              lastName  : users[i][0].capitalize(),
+              firstName : users[i][1].toProperCase(),
+              lastName  : users[i][0].toProperCase(),
               email     : users[i][2],
               idNum     : users[i][3]
             });
@@ -526,35 +552,37 @@ $('.selectpicker').selectpicker({
           // $('#userSelect').hide();
           $('#userSelect').empty();
 
-          $.each(results, function(i, user) {
+          var count = 0;
 
+          $.each(results, function(i, user) {
             if (user.firstName != null && user.idNum != null) {
 
               if (user.email.substring(user.email.length - 11, user.email.length) == '@drexel.edu') {
-                user.email = user.email.substring(0, user.email.length - 11);              
+                user.email = user.email.substring(0, user.email.length - 11);   
               }
 
-              var option = '<option id="'+user.idNum+'" label="'+user.email+'">'+user.firstName+' '+user.lastName+'</option>';
+              var option = '<option value="'+user.idNum+'" data-subtext="'+user.email+ ' ('+user.idNum+')">'+user.firstName+' '+user.lastName+'</option>';
 
               $(option).appendTo('#userSelect');
 
-              // console.log(option);
+              // console.log("count: "+count+" | "+option);
 
               // console.log("Option added");
 
 
               // $('#userSelect:last').hide();
-              // $('.selectpicker').selectpicker('render');
 
               // $('#userSelect').fadeIn('fast');
             }
             else {
-              console.log(user);
+              console.log("Error: "+user);
             }
+            count ++;
 
           });          
               // $('#userSelect').show();
-
+        results = [];
+        $('.selectpicker').selectpicker('refresh');
           // $('#userSelect').trigger();
           // results = [];
 
@@ -571,7 +599,17 @@ $('.selectpicker').selectpicker({
 
 
     },
+
+    keyup: function(e) {
+      // $('.selectpicker').click();
+      // setTimeout(getUser, 250);
+      // e.preventDefault();
+    },   
     keydown: function(e) {
+
+      // $('#userSelect').selectpicker('hide');    
+      // console.log("Show"); 
+
       // console.log("Key Press");
       // results = [];
       // $('.selectpicker').selectpicker('hide');
@@ -583,10 +621,63 @@ $('.selectpicker').selectpicker({
     }
   });
 
+  var firstLoad = true;
+
   function getUser() {
+
     /*
      * TODO: Get user info based on what is typed (or scanned) into name field.
      */
+
+    console.log("Get User:")
+    var slideSpeed = 'fast';
+    var delay      = 0;
+
+    // User Panel
+    var userInfoGroup = $('#user-info');
+    var userInfoName  = $('#user-info-name');
+    // var userInfoId    = $('#user-info-id');
+    var userInfoEmail = $('#user-info-id');
+
+    // From Select 
+    var firstOption   = $('#userSelect option:first');
+    var userId        = $(firstOption).val();
+    var userName      = $(firstOption).html();
+    var userEmail     = $(firstOption).attr('data-subtext');
+
+    if ($(userInfoEmail).html() != userId) {
+      $(userInfoGroup).fadeTo(slideSpeed, 0, function() {
+
+        // TODO: AJAX server request to pull relevant user info based on ID. 
+
+        if (typeof firstOption.val() === 'undefined') {
+          delay = 500;
+          $('#no-user').delay(delay).slideDown(slideSpeed);
+          $(userInfoGroup).find('.info-spot').html("");
+          console.log("Undef");
+          // $(userInfoGroup).fadeTo(slideSpeed, 0);      
+        }
+
+        else {
+
+          if ($(userInfoName).html() == "" || firstLoad) { // If previously was no user loaded
+            $('#no-user').slideUp(slideSpeed);
+            firstLoad = false;
+            console.log("No user loaded false");
+            delay = 500;
+          }
+
+          $(userInfoName).html(userName);
+          $(userInfoEmail).html(userEmail);
+
+          $(userInfoGroup).delay(delay).fadeTo(slideSpeed, 1);
+          console.log("Updated");
+        }          
+      });
+    }
+    else {
+      $(userInfoGroup).fadeTo(slideSpeed, 1);     
+    }
   }
 
   function getDevice() {
