@@ -223,7 +223,7 @@ function getLoanItemDiv(assetInfo) {
 			'    </div>',
 			'  </div>',
 			'  <div class="col-md-3">',
-			'    <img class="img img-responsive" width="42" src="/assets/img/'+assetInfo.imgName+'">',
+			'    <img class="img img-responsive" width="42" src="/assets/img/'+assetInfo.imgName+'" alt="'+assetInfo.name+'">',
       '  </div>',
       '  <div class="col-md-9 loan-item-text">',
       '    <div class="loan-item-type text-primary lead">'+assetInfo.name+'</div>&nbsp',
